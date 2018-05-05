@@ -1,0 +1,80 @@
+<!-- cache-view is set to false for this page because after a clip is created we want to navigate back to this page
+Having the cahce-view = false, forces the controller to re-evaluate so that the new clip is included in the feeds -->
+<ion-content class="view-class" cache-view="false" view-title="Timeline">
+  <ion-title>
+    <img src="img/vine_logo_banner.png" width="100">
+  </ion-title>
+  <ion-buttons side="primary">
+    <button class="button button-clear button-icon ion-person-add" ng-click="openPeople()">
+    </button>
+  </ion-buttons>
+  <!--  <ion-nav-buttons side="secondary">
+    <button class="button button-clear button-icon ion-chatboxes" ng-click="openMessage()">
+    </button> -->
+  <ion-content class="vine-feeds">
+    <ion-refresher on-refresh="refresh()" pulling-icon="ion-chevron-up"></ion-refresher>
+    
+	<div class="list vine-feeds" *ngFor="let clip of data.feedClips">
+	  <div class="item item-avatar avatar-small">
+	    <img class="b b-2x b-white" (click)="goUser('clip.username')" src="clip.image">
+	    <span class="badge badge-balanced rounded"></span>
+	    <div class="row no-padder">
+	      <div class="col col-67 no-padder">
+	        <div class="font-bold text-ellipsis text-sm" (click)="goUser('clip.username')">@{{clip.username}}</div>
+	        <!-- <div class="text-xs color-grey-500">2d at Meat Market</div> -->
+	      </div>
+	      <!--  <div class="col no-padder text-right">
+	        <div class="count-views text-sm">{{clip.views}}</div>
+	        <span class="count-title text-xs color-grey-500">Views</span>
+	      </div> -->
+	    </div>
+	  </div>
+		  <div class="item item-body no-padder b-none">
+		    <video controls class="video w-full" webkit-playsinline playsinline mute (play)="increasePlayCount('clip.id')" poster="{{clip.clipImage}}">
+		      <source [src]="clip.file" type="video/mp4">
+		      <source [src]="clip.file" type="video/ogg">
+		    </video>
+		    
+		    <div class="wrapper-sm">
+		      <div class="caption no-padder m-b-sm">
+		        {{clip.name}} <a href="" class="hashtag">#relivvit</a>
+		      </div>
+		
+		      <div center class="actions row no-padder row-center color-grey-500">
+		      	
+		      	<button (click)="share('f','clip.file','clip.image','clip.name');" class="button button-light">
+		      		<i class="icon ion-social-facebook"></i>
+		      	</button>
+		      	 <button ng-click="share('w','clip.file','clip.image','clip.name');" class="button button-light">
+		       		<i class="icon ion-social-whatsapp"></i>
+		      	</button>
+		      	<button (click)="share('t','clip.file','clip.image','clip.name');" class="button button-light">
+		      		<i class="icon ion-social-twitter"></i>
+		      	</button>
+		      	 <button ng-click="share('i','clip.file','clip.image','clip.name');" class="button button-light">
+		      		<i class="icon ion-social-instagram"></i>
+		      	</button>
+		      	<button (click)="saveToCameraRoll('clip.file')" class="button button-light">
+		      		<i class="icon ion-ios-download-outline"></i>
+		      	</button>
+		      
+		        <!-- <div class="col no-padder">
+		          <i class="icon ion-heart b b-light b-2x rounded"></i>
+		          <span class="text-xs">{{clip.likes}}</span>
+		        </div>
+		         <div class="col no-padder" ui-sref="home.comment">
+		          <i class="icon ion-navicon b b-light b-2x rounded"></i>
+		          <span class="text-xs">4.0k</span>
+		        </div>
+		        <div class="col no-padder">
+		          <i class="icon ion-forward b b-light b-2x rounded"></i>
+		          <span class="text-xs">2.0k</span>
+		        </div>
+		        <div class="col no-padder text-center">
+		           <i class="icon ion-more text-2x" ng-click="actionSheet()"></i>
+		        </div> -->
+		      </div>
+			</div>
+		</div>
+	</div>
+  </ion-content>
