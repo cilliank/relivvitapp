@@ -1,0 +1,74 @@
+<!--
+  Generated template for the OtherUserPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>other-user</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  	
+  	<ion-buttons side="secondary">
+	    <i class="icon {{data.icon}} balanced b b-light b-2x r-2x wrapper-xs padder" (click)="followOrUnfollow(data.userId,data.icon)"></i>  
+  	</ion-buttons>
+  		
+  <ion-title>
+    <div class="l-h-1x">
+      {{data.firstname}} {{data.lastName}}
+      <br>
+      <span class="text-xs">@{{data.username}}</span>
+    </div>
+  </ion-title>
+
+  <!--  <ion-content class="vine-profile bg-grey-200">
+      <ion-slide-box on-slide-changed="slideHasChanged($index)" class="calm-bg color-white">
+      <ion-slide> -->
+        <div class="wrapper-lg text-center">
+          <img src="https://www.relivvit.com/{{data.image}}" alt="" class="thumb-lg rounded b b-light b-2x">
+          <p (click)="goFollowers()">{{data.followers}} Followers</p> 
+          <p></p>
+          <p (click)="goFollowing()">{{data.following}} Following</p>
+          <!-- <div class="text-xs color-grey-300">7 Loops</div> -->
+        </div>
+      <!--  </ion-slide>
+      <ion-slide>
+        <div class="wrapper-lg text-center">
+          <p>
+            {{data.location}}
+          </p>
+          <p>{{data.bio}}</p>
+        </div>
+      </ion-slide>
+    </ion-slide-box> -->
+
+    <!-- <div class="button-bar bar-light m-b-md">
+      <a class="button"><span class="balanced">5 Posts</span></a>
+      <a class="button">17 Likes</a>
+    </div> -->
+
+    <div class="list vine-feeds" *ngFor="let clip of data.feedClips">
+  		<div class="item item-body no-padder b-none">
+    		<video controls class="video w-full" webkit-playsinline playsinline mute poster="{{clip.clipImage}}">
+      			<source [src]="clip.file" type="video/mp4">
+		      	<source [src]="clip.file" type="video/ogg">
+    		</video>
+        	<span class="badge badge-calm rounded"></span>
+        	<div class="row no-padder">
+          		<div class="col col-5 no-padder">
+            		<div class="font-bold text-ellipsis text-sm">{{clip.name}}</div>
+            		<div class="text-xs color-grey-500">Views {{clip.views}}</div>
+        		</div>
+    		</div>
+  		</div>
+	</div>
+
+</ion-content>
+
+

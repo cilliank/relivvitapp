@@ -1,26 +1,26 @@
 <!-- cache-view is set to false for this page because after a clip is created we want to navigate back to this page
 Having the cahce-view = false, forces the controller to re-evaluate so that the new clip is included in the feeds -->
 <ion-content class="view-class" cache-view="false" view-title="Timeline">
-  <ion-title>
-    <img src="img/vine_logo_banner.png" width="100">
-  </ion-title>
+  <ion-navbar>
+
+    <ion-icon name="person-add-outline" large (click)="openPeople()"></ion-icon>
+    <img src="assets/imgs/vine_logo_banner.png" width="100">
+  </ion-navbar>
+  
   <ion-buttons side="primary">
-    <button class="button button-clear button-icon ion-person-add" ng-click="openPeople()">
-    </button>
+    
   </ion-buttons>
-  <!--  <ion-nav-buttons side="secondary">
-    <button class="button button-clear button-icon ion-chatboxes" ng-click="openMessage()">
-    </button> -->
+
   <ion-content class="vine-feeds">
     <ion-refresher on-refresh="refresh()" pulling-icon="ion-chevron-up"></ion-refresher>
     
 	<div class="list vine-feeds" *ngFor="let clip of data.feedClips">
 	  <div class="item item-avatar avatar-small">
-	    <img class="b b-2x b-white" (click)="goUser('clip.username')" src="clip.image">
+	    <img class="b b-2x b-white" (click)="goUser(clip.username)" src="{{clip.image}}">
 	    <span class="badge badge-balanced rounded"></span>
 	    <div class="row no-padder">
 	      <div class="col col-67 no-padder">
-	        <div class="font-bold text-ellipsis text-sm" (click)="goUser('clip.username')">@{{clip.username}}</div>
+	        <div class="font-bold text-ellipsis text-sm" (click)="goUser(clip.username)">@{{clip.username}}</div>
 	        <!-- <div class="text-xs color-grey-500">2d at Meat Market</div> -->
 	      </div>
 	      <!--  <div class="col no-padder text-right">

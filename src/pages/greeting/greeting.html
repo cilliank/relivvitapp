@@ -1,0 +1,50 @@
+<ion-content class="bg-black" scroll="false">
+    <div vertical layout fit>
+      <div class="bg-moving" relative flex>
+        <div class="welcome-overlay wrapper text-center" fit>
+          <div class="m-t-xl"></div>
+          <img class="m-t-xxl m-b-md" src="assets/imgs/vine_logo.png" alt="" width="200">
+          <p class="text-lg color-grey-500">Watch it. Share it.<br>Relivvit</p>  
+        </div>
+      </div>
+
+      <div class="bg-grey-900" ng-init="activeBox = 0">
+        <div horizontal layout center around-justified class="color-white font-bold b-b b-dark">
+          <div class="wrapper b-2x b-white" ng-class="{'b-b': activeBox == 0}" (click)="activeBox = 0">
+            Sign Up
+          </div>
+          <div class="wrapper inline b-2x b-white" ng-class="{'b-b': activeBox == 1}" (click)="activeBox = 1">
+            Log In
+          </div>
+        </div>
+        <ion-slides on-slide-changed="activeBox = $index" show-pager="false" active-slide="activeBox">
+          <ion-slide>
+            <div class="cta-buttons wrapper">
+              <div class="padder-lg">
+                <!-- <button class="button button-block button-small button-stable rounded padder-lg icon-left ion-social-twitter wrapper-xs" ng-click="done()">
+                  <b>Sign up with Twitter</b>
+                </button> -->
+                <div class="m-b-md"></div>
+                <button class="button button-block button-small button-outline rounded padder-lg icon-left wrapper-xs" ui-sref="welcome.signup">
+                  <b>Sign up</b>
+                </button>
+              </div>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div class="cta-buttons wrapper">
+              <div class="padder-lg">
+                <!-- <button class="button button-block button-small button-stable rounded padder-lg icon-left ion-social-twitter wrapper-xs" ng-click="done()">
+                  <b>Log in with Twitter</b>
+                </button> -->
+                <div class="m-b-md"></div>
+                <button class="button button-block button-small button-outline rounded padder-lg icon-left wrapper-xs" ui-sref="welcome.login">
+                  <b>Login</b>
+                </button>
+              </div>
+            </div>
+          </ion-slide>
+        </ion-slides>
+      </div>
+    </div>
+  </ion-content>

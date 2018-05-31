@@ -1,18 +1,18 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 /*
   Generated class for the ProfileServiceProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
+  See http://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
 export class ProfileServiceProvider {
 
-	api_base = 'https://www.relivvit.com/api/rest/user/';
-    profile = '';
-    otherUser = '';
+	api_base = 'http://138.201.90.98/api/rest/user/';
+    profile: Object;
+    otherUser; Object;
     following = [];
     signupPartialData = {
     		 'firstname':'',
@@ -24,8 +24,11 @@ export class ProfileServiceProvider {
     
 
 
-  	constructor() {
-  
+  	constructor(public httpClient:HttpClient) {
+  		this.profile = {};
+  		this.otherUser = {};
+  		//TODO - Remove, during development only
+  		this.profile.sessionToken = '1_2acefc49fede163cd6e49655acb8a79f';
   	}
     
         set(data){
@@ -41,15 +44,15 @@ export class ProfileServiceProvider {
         }
         
         setSignupPartialData(data){
-        	signupPartialData = data;
+        	this.signupPartialData = data;
         }
         
         getSignupPartialData(){
-        	return signupPartialData;
+        	return this.signupPartialData;
         }
         
         save(data,sessionToken){
-            //PUT https://www.relivvit.com/api/rest/user
+            //PUT http://www.relivvit.com/api/rest/user
             var profile_url = api_base + '?session-token=' + sessionToken;
             
             console.log('SessionToken in profileService.save: ' + sessionToken);
@@ -69,8 +72,8 @@ export class ProfileServiceProvider {
             
         }
         getOtherUser(username,sessionToken){
-            //GET https://www.relivvit.com/api/rest/user/public/ckelly?include-followers=false&include-following=false
-            var profile_url = api_base;
+            //GET http://www.relivvit.com/api/rest/user/public/ckelly?include-followers=false&include-following=false
+            var profile_url = this.api_base;
             
             var user_url = profile_url + 'public/' + username + '?include-followers=false&include-following=false' + '&session-token=' + sessionToken;
             
@@ -82,13 +85,11 @@ export class ProfileServiceProvider {
                 withCredentials: true
             };
             
-            return $http.get(user_url, {}, options).then(function(resp){
-                return resp.data;
-            });
+            return this.httpClient.get(user_url, {}, options);
             
         }
         checkUserExists(username,sessionToken){
-        	//GET https://www.relivvit.com/api/rest/user/check?username=xxxxx
+        	//GET http://www.relivvit.com/api/rest/user/check?username=xxxxx
             var profile_url = api_base;
             
             var user_url = profile_url + 'check?username=' + username + '&session-token=' + sessionToken;
@@ -106,7 +107,7 @@ export class ProfileServiceProvider {
             });
         }
         getAllUsers(data,sessionToken){
-            //GET https://www.relivvit.com/api/rest/user/all
+            //GET http://www.relivvit.com/api/rest/user/all
             var profile_url = api_base;
             
             var user_url = profile_url + 'all' + '?exclude-already-following=true' + '&session-token=' + sessionToken;
@@ -130,7 +131,7 @@ export class ProfileServiceProvider {
             
         }
         getFollowerUsers(data,sessionToken){
-            //GET https://www.relivvit.com/api/rest/user/public/ckelly
+            //GET http://www.relivvit.com/api/rest/user/public/ckelly
             var profile_url = api_base;
             
             var user_url = profile_url + 'public/' + data  + '?session-token=' + sessionToken;
@@ -154,7 +155,7 @@ export class ProfileServiceProvider {
             
         }
         getFollowingUsers(data,sessionToken){
-            //GET https://www.relivvit.com/api/rest/user/public/ckelly
+            //GET http://www.relivvit.com/api/rest/user/public/ckelly
             var profile_url = api_base;
             
             var user_url = profile_url + 'public/' + data  + '?session-token=' + sessionToken;
@@ -187,10 +188,10 @@ export class ProfileServiceProvider {
         	
         }
         getFollowing(){
-        	return following;
+        	return this.following;
         }
         saveFollowing(data){
-        	following = data;
+        	this.following = data;
         }
         follow(userId,sessionToken){
         	
@@ -269,12 +270,12 @@ export class ProfileServiceProvider {
         }
         setOtherUserLocal(data){
             
-            otherUser = data;
+            this.otherUser = data;
             
         }
         getOtherUserLocal(){
             
-            return otherUser;
+            return this.otherUser;
             
         }
 

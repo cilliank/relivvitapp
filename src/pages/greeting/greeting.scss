@@ -1,7 +1,11 @@
-page-feed {
-    .ion-icon {
-    	font-size: 50px; //Preferred size here
-	},
+page-greeting {
+
+@font-face {
+  font-family: "Ionicons";
+  src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1");
+  src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/ionicons.ttf?v=2.0.1") format("truetype"), url("../lib/ionic/fonts/ionicons.woff?v=2.0.1") format("woff"), url("../lib/ionic/fonts/ionicons.woff") format("woff"), url("../lib/ionic/fonts/ionicons.svg?v=2.0.1#Ionicons") format("svg");
+  font-weight: normal;
+  font-style: normal; }
 
 .ion, .ionicons,
 .ion-alert:before,
@@ -10050,4 +10054,6 @@ html [segment], html segment {
   background: url("../img/bg.png") center center transparent;
   background-size: cover; }
 	
+
+
 }

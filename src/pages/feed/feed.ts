@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { ClipServiceProvider } from '../../providers/clip-service/clip-service';
+import { OtherUserPage } from '../../pages/other-user/other-user';
 import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * Generated class for the FeedPage page.
  *
- * See https://ionicframework.com/docs/components/#navigation for more info on
+ * See http://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
@@ -26,8 +27,9 @@ export class FeedPage {
   
 	  	//Get the current user profile
 		var profile = profileService.get();
-	
-
+		
+		var protocol = "http://";
+		var website = "138.201.90.98";
 	
 		this.data = {
 		    'userId':profile.userId,
@@ -55,16 +57,16 @@ export class FeedPage {
 		   this.views=views;
 		   this.likes=likes;
 		   
-		   var clipFile = "https://www.relivvit.com" + file;
+		   var clipFile = protocol + website + file;
 		   //var trustFile = $sce.trustAsResourceUrl(clipFile);
 		   var trustFile = sanitizer.bypassSecurityTrustResourceUrl(clipFile);
-		   this.clipImage="https://www.relivvit.com" + clipImage;
+		   this.clipImage= protocol + website + clipImage;
 		   
 		   this.file=trustFile;
 		   this.firstname=firstname;
 		   this.lastName=lastName;
 		   this.username=username;
-		   this.image="https://www.relivvit.com" + image;
+		   this.image= protocol + website + image;
 		};
 	
 		console.log("FeedUser: " + JSON.stringify(this.data));
@@ -136,13 +138,15 @@ export class FeedPage {
 	
 	public goUser(data){
 	
-		ProfileService.getOtherUser(data, profile.sessionToken).then(function(data){
+		this.profileService.getOtherUser(data, this.data.sessionToken).subscribe(
+	      		
+	      	  data => {
 			
-			ProfileService.setOtherUserLocal(data);
+				this.profileService.setOtherUserLocal(data);
 			
-			$state.go('home.other-user');
+				this.navCtrl.push(OtherUserPage);
 		
-		});
+			});
 
 	};
 	
