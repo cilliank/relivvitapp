@@ -20,30 +20,32 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class FeedPage {
 
 	public data: Object;
+	
+	//Get the current user profile
+	profile = this.profileService.get();
 
  	constructor(public navCtrl: NavController, public navParams: NavParams, 
   					public profileService: ProfileServiceProvider, public clipService: ClipServiceProvider,
   					public sanitizer: DomSanitizer) {
   
-	  	//Get the current user profile
-		var profile = profileService.get();
+	  	
 		
 		var protocol = "http://";
 		var website = "138.201.90.98";
 	
 		this.data = {
-		    'userId':profile.userId,
-		    'username':profile.username,
-		    'firstname': profile.firstname,
-		    'lastName': profile.lastName,
-		    'email': profile.email,
-		    'dateOfBirth': profile.dateOfBirth,
-		    'bio': profile.bio,
-		    'followers': profile.followers,
-		    'following': profile.following,
-		    'image': profile.image,
-		    'location': profile.location,
-		    'sessionToken':profile.sessionToken,
+		    'userId':this.profile.userId,
+		    'username':this.profile.username,
+		    'firstname': this.profile.firstname,
+		    'lastName': this.profile.lastName,
+		    'email': this.profile.email,
+		    'dateOfBirth': this.profile.dateOfBirth,
+		    'bio': this.profile.bio,
+		    'followers': this.profile.followers,
+		    'following': this.profile.following,
+		    'image': this.profile.image,
+		    'location': this.profile.location,
+		    'sessionToken':this.profile.sessionToken,
 		    'numClips': 0,
 		    'feedClips' : [],
 		    'notFollowingAnyoneMessage1':'',

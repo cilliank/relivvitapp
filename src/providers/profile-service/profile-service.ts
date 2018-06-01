@@ -59,7 +59,7 @@ export class ProfileServiceProvider {
         
         save(data,sessionToken){
             //PUT http://www.relivvit.com/api/rest/user
-            var profile_url = api_base + '?session-token=' + sessionToken;
+            var profile_url = this.api_base + '?session-token=' + sessionToken;
             
             console.log('SessionToken in profileService.save: ' + sessionToken);
             console.log('Profile in profileService.save: ' + JSON.stringify(data));
@@ -72,9 +72,7 @@ export class ProfileServiceProvider {
                 withCredentials: true
             };
             
-            return $http.put(profile_url, data, options).then(function(resp){
-                return resp.data;
-            });
+            return this.httpClient.put(profile_url, data, options);
             
         }
         getOtherUser(username,sessionToken){
@@ -96,7 +94,7 @@ export class ProfileServiceProvider {
         }
         checkUserExists(username,sessionToken){
         	//GET http://www.relivvit.com/api/rest/user/check?username=xxxxx
-            var profile_url = api_base;
+            var profile_url = this.api_base;
             
             var user_url = profile_url + 'check?username=' + username + '&session-token=' + sessionToken;
             
@@ -108,13 +106,11 @@ export class ProfileServiceProvider {
                 withCredentials: true
             };
             
-            return $http.get(user_url, {}, options).then(function(resp){
-                return resp.data;
-            });
+            return this.httpClient.get(user_url, {}, options);
         }
         getAllUsers(data,sessionToken){
             //GET http://www.relivvit.com/api/rest/user/all
-            var profile_url = api_base;
+            var profile_url = this.api_base;
             
             var user_url = profile_url + 'all' + '?exclude-already-following=true' + '&session-token=' + sessionToken;
             
@@ -126,19 +122,12 @@ export class ProfileServiceProvider {
                 withCredentials: true
             };
             
-            return $http.get(user_url, options).then(
-            	function(resp){
-            		return resp.data;
-            	},
-            	function(error){
-            		console.log(error);
-            	}
-            );
+            return this.httpClient.get(user_url, options);
             
         }
         getFollowerUsers(data,sessionToken){
             //GET http://www.relivvit.com/api/rest/user/public/ckelly
-            var profile_url = api_base;
+            var profile_url = this.api_base;
             
             var user_url = profile_url + 'public/' + data  + '?session-token=' + sessionToken;
             
@@ -150,19 +139,12 @@ export class ProfileServiceProvider {
                 withCredentials: true
             };
             
-            return $http.get(user_url, options).then(
-            	function(resp){
-            		return resp.data.followers;
-            	},
-            	function(error){
-            		console.log(error);
-            	}
-            );
+            return this.httpClient.get(user_url, options);
             
         }
         getFollowingUsers(data,sessionToken){
             //GET http://www.relivvit.com/api/rest/user/public/ckelly
-            var profile_url = api_base;
+            var profile_url = this.api_base;
             
             var user_url = profile_url + 'public/' + data  + '?session-token=' + sessionToken;
             
@@ -174,14 +156,7 @@ export class ProfileServiceProvider {
                 withCredentials: true
             };
             
-            return $http.get(user_url, options).then(
-            	function(resp){
-            		return resp.data.following;
-            	},
-            	function(error){
-            		console.log(error);
-            	}
-            );
+            return this.httpClient.get(user_url, options);
             
         }
         setFollowing(data){
@@ -201,7 +176,7 @@ export class ProfileServiceProvider {
         }
         follow(userId,sessionToken){
         	
-        	var follow_url = api_base + 'follow' + '?session-token=' + sessionToken;
+        	var follow_url = this.api_base + 'follow' + '?session-token=' + sessionToken;
         	
         	//Update local records
         	following.push(userId);
@@ -231,7 +206,7 @@ export class ProfileServiceProvider {
                 'userId': userId
             };
             
-            return $http.post(follow_url, data, options).then(function(resp){
+            return this.httpClient.post(follow_url, data, options).then(function(resp){
             	profile.following++;
                 return resp.data;
             });
@@ -254,7 +229,7 @@ export class ProfileServiceProvider {
         	}
         	
         	//Make REST call
-        	var unfollow_url = api_base + 'unfollow' + '?session-token=' + sessionToken;
+        	var unfollow_url = this.api_base + 'unfollow' + '?session-token=' + sessionToken;
 
         	//Make REST call
         	//Set cookie
@@ -269,7 +244,7 @@ export class ProfileServiceProvider {
                 'userId': userId
             };
             
-            return $http.post(unfollow_url, data, options).then(function(resp){
+            return this.httpClient.post(unfollow_url, data, options).then(function(resp){
             	profile.following--;
                 return resp.data;
             });
