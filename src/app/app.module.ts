@@ -15,6 +15,7 @@ import { FollowersPage } from '../pages/followers/followers';
 import { FollowingPage } from '../pages/following/following';
 import { MePage } from '../pages/me/me';
 import { SettingsPage } from '../pages/settings/settings';
+import { PasswordPage } from '../pages/password/password';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -36,7 +37,8 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     FollowersPage,
     FollowingPage,
     MePage,
-    SettingsPage
+    SettingsPage,
+    PasswordPage
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     FollowersPage,
     FollowingPage,
     MePage,
-    SettingsPage
+    SettingsPage,
+    PasswordPage
   ],
   providers: [
     StatusBar,

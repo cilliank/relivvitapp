@@ -4,15 +4,113 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header> <ion-navbar> <ion-title>settings</ion-title>
 
-  <ion-navbar>
-    <ion-title>settings</ion-title>
-  </ion-navbar>
 
-</ion-header>
+<button class="button"
+	(click)="updateProfile(data.email,data.bio,data.location)">
+	Save</button>
+</ion-navbar> </ion-header>
 
 
 <ion-content padding>
 
+<div class="wrapper-sm assertive-bg text-center">
+	<span class="pos-rlt"> <img
+		src="https://138.201.90.98/{{data.image}}" alt=""
+		class="thumb-lg rounded b b-light b-2x" (click)="uploadProfilePic()" />
+		<i class="icon ion-edit button-edit assertive bg-white b-2x rounded"></i>
+	</span>
+</div>
+
+<div class="list m-n text-center">
+	<div class="item font-bold">{{data.firstname}} {{data.lastName}}
+	</div>
+	<div id="email" class="item font-bold" contenteditable="true">
+		{{data.email}}</div>
+	<div id="bio" class="item text-sm" contenteditable="true">
+		{{data.bio}}</div>
+	<div id="location" class="item text-sm" contenteditable="true">
+		{{data.location}}</div>
+</div>
+
+<div class="list">
+	<div class="item item-divider text-sm">Account</div>
+	<div class="list">
+		<!-- <a class="item" href="#">
+          Email
+          <span class="item-note">
+            {{data.email}}
+          </span>
+        </a> -->
+		<!-- <a class="item" href="#">
+          Twitter
+          <span class="item-note">
+            @mrhieu
+          </span>
+        </a> -->
+		<!--  <a class="item" href="#">
+          Phone
+          <span class="item-note">
+            {{data.phoneNumber}}
+          </span>
+        </a> -->
+
+		<!-- <a class="item" href="#">
+          Change password
+          <span class="item-note">
+            <i class="icon ion-chevron-right" ui-sref="home.settings.password"></i>
+          </span>
+        </a> -->
+
+		<div class="wrapper-sm">
+			<button class="button button-block button-assertive font-bold"
+				(click)="changePassword()">Change Password</button>
+		</div>
+
+		<!--  <a class="item" href="#">
+          Notifications
+          <span class="item-note">
+            <i class="icon ion-chevron-right"></i>
+          </span>
+        </a> -->
+
+		<!--  <a class="item" href="#">
+          Privacy
+          <span class="item-note">
+            <i class="icon ion-chevron-right"></i>
+          </span>
+        </a> -->
+	</div>
+</div>
+
+<!--  <div class="list">
+      <div class="item item-divider text-sm">Social Networks</div>
+      <div class="list">
+        <a class="item" href="#">
+          Facebook
+          <span class="item-note">
+            Not connected
+          </span>
+        </a>
+        <a class="item" href="#">
+          Tumblr
+          <span class="item-note">
+            Not connected
+          </span>
+        </a>
+      </div>
+    </div> -->
+
+<div class="text-center item font-bold">
+	Got a Question For Us? <br /> <a
+		href="mailto:info@relivvit.com?Subject=Relivvit%20Help" target="_top">info@relivvit.com</a>
+</div>
+
+<div class="wrapper-sm">
+	<button class="button button-block button-assertive font-bold"
+		(click)="logout()">Log Out</button>
+</div>
+
+<p class="text-center color-grey-300">Designed by Relivvit</p>
 </ion-content>

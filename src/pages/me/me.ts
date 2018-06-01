@@ -142,11 +142,6 @@ export class MePage {
         console.log("User: " + JSON.stringify(this.data));
     }
 
-    public logout() {
-        localStorage.removeItem("username");
-        localStorage.removeItem("password");
-    }
-
     public openPeople() {
         this.navCtrl.push(PeoplePage);
     };
@@ -292,99 +287,6 @@ export class MePage {
             }, function(err) {
                 alert(err);
             });
-    }
-
-    public updateProfile(email, bio, location) {
-
-        var updateData = {
-            'id': this.profile.userId,
-            'email': this.profile.email,
-            'bio': this.profile.bio,
-            'location': this.profile.location
-        }
-        var update = false;
-
-        var currentEmail = this.profile.email;
-        var newEmail = document.getElementById("email").innerText;
-        if (currentEmail != newEmail) {
-            console.log('Updating email: ' + newEmail);
-
-            //Validate new email
-            var validEmail = validateEmail(newEmail);
-            if (validEmail) {
-                //Then the email address has been updated
-                updateData.email = newEmail;
-                update = true;
-            }
-            else {
-                createProfilePopup('Error', 'The email address you entered is not valid');
-                return false;
-            }
-        }
-
-        var currentBio = this.profile.bio;
-        var newBio = document.getElementById("bio").innerText;
-        if (currentBio != newBio) {
-            console.log('Updating bio: ' + newBio);
-
-            //Validate new bio
-            if (newBio.length < 280) {
-                //Then the bio has been updated
-                updateData.bio = newBio;
-                update = true;
-            }
-            else {
-                createProfilePopup('Error', 'The bio you entered is too long. Max 280 characters');
-                return false;
-            }
-        }
-
-        var currentLocation = this.profile.location;
-        var newLocation = document.getElementById("location").innerText;
-        if (currentLocation != newLocation) {
-            console.log('Updating location: ' + newLocation);
-
-            //Validate new location
-            if (newLocation.length < 50) {
-                //Then the location has been updated
-                updateData.location = newLocation;
-                update = true;
-            }
-            else {
-                createProfilePopup('Error', 'The location you entered is too long. Max 50 characters');
-                return false;
-            }
-        }
-
-        if (update) {
-            this.ProfileService.save(updateData, this.profile.sessionToken).subscribe(
-
-                data => {
-                    createProfilePopup('Success', 'Your profile has been updated');
-                    this.profile.email = newEmail;
-                    this.profile.bio = newBio;
-                    this.profile.location = newLocation;
-                    this.ProfileService.set(this.profile);
-                    //$state.reload();
-                    return true;
-                });
-        }
-
-
-        function createProfilePopup(result, message) {
-            //Display error message
-            let alert = this.alertCtrl.create({
-                title: 'Update ' + result,
-                subTitle: message,
-                buttons: ['OK']
-            });
-            alert.present();
-        }
-
-        function validateEmail(email) {
-            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(String(email).toLowerCase());
-        }
     }
 
     ionViewDidLoad() {
