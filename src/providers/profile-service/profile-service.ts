@@ -29,6 +29,12 @@ export class ProfileServiceProvider {
   		this.otherUser = {};
   		//TODO - Remove, during development only
   		this.profile.sessionToken = '1_2acefc49fede163cd6e49655acb8a79f';
+  		this.profile.userId = '1';
+  		this.profile.username = 'ckelly';
+  		this.profile.firstname = 'Cillian'
+  		this.profile.lastName = 'Kelly';
+  		this.profile.followers = '20';
+  		this.profile.following = '333';
   	}
     
         set(data){

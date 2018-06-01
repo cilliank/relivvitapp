@@ -10,6 +10,11 @@ import { PostsPage } from '../pages/posts/posts';
 import { TabsPage } from '../pages/tabs/tabs';
 import { GreetingPage } from '../pages/greeting/greeting';
 import { OtherUserPage } from '../pages/other-user/other-user';
+import { PeoplePage } from '../pages/people/people';
+import { FollowersPage } from '../pages/followers/followers';
+import { FollowingPage } from '../pages/following/following';
+import { MePage } from '../pages/me/me';
+import { SettingsPage } from '../pages/settings/settings';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,7 +31,12 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     PostsPage,
     TabsPage,
     GreetingPage,
-    OtherUserPage
+    OtherUserPage,
+    PeoplePage,
+    FollowersPage,
+    FollowingPage,
+    MePage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -41,7 +51,12 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     PostsPage,
     TabsPage,
     GreetingPage,
-    OtherUserPage
+    OtherUserPage,
+    PeoplePage,
+    FollowersPage,
+    FollowingPage,
+    MePage,
+    SettingsPage
   ],
   providers: [
     StatusBar,

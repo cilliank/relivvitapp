@@ -61,9 +61,7 @@ export class ClipServiceProvider {
                 withCredentials: true
             };
             
-            return this.httpClient.get(own_clips_url, options).then(function(resp){
-                return resp.data;
-            });
+            return this.httpClient.get(own_clips_url, options);
     	}
     	getOtherUsersClips(clipData){
     		//http://www.relivvit.com/api/rest/clips?shared=true&order-by=created&userId=21
@@ -89,14 +87,7 @@ export class ClipServiceProvider {
     			videos_url = videos_url + '&addTime=' + data.addTime;
     		}  		
     		
-    		return this.httpClient.get(videos_url).then(
-                	function(resp){
-                		return resp.data;
-                	},
-                	function(error){
-                		console.log(error);
-                	}
-            );
+    		return this.httpClient.get(videos_url);
     		
     	}
         create(data,sessionToken){
@@ -112,14 +103,7 @@ export class ClipServiceProvider {
                 withCredentials: true
             };
             
-            return this.httpClient.post(clips_url, data, options).then(
-                	function(resp){
-                		return resp.data;
-                	},
-                	function(error){
-                		console.log(error);
-                	}
-            );
+            return this.httpClient.post(clips_url, data, options);
             
             
         }
@@ -136,9 +120,7 @@ export class ClipServiceProvider {
                 withCredentials: true
             };
             
-            return this.httpClient.delete(clips_url, options).then(function(resp){
-                return resp.data;
-            });
+            return this.httpClient.delete(clips_url, options);
         }
         update(data,sessionToken){
             //PUT http://www.relivvit.com/api/rest/clips/435
@@ -161,9 +143,7 @@ export class ClipServiceProvider {
                 'name':clipName
             };
             
-            return this.httpClient.put(clips_url, clipData, options).then(function(resp){
-                return resp.data;
-            });
+            return this.httpClient.put(clips_url, clipData, options);
             
         }
         share(data,sessionToken){
@@ -189,9 +169,7 @@ export class ClipServiceProvider {
                 
             };
             
-            return this.httpClient.post(clips_url, shareData, options).then(function(resp){
-                return resp.data;
-            });
+            return this.httpClient.post(clips_url, shareData, options);
             
         }
         unshare(data,sessionToken){
@@ -217,9 +195,7 @@ export class ClipServiceProvider {
                 
             };
             
-            return this.httpClient.post(clips_url, unshareData, options).then(function(resp){
-                return resp.data;
-            });
+            return this.httpClient.post(clips_url, unshareData, options);
             
         }
         increasePlayCount(data,sessionToken){
@@ -239,8 +215,6 @@ export class ClipServiceProvider {
                 withCredentials: true
             };
             
-            return this.httpClient.post(playcount_url, unshareData, options).then(function(resp){
-                return resp.data;
-            });
+            return this.httpClient.post(playcount_url, unshareData, options);
         }
 }

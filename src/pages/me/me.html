@@ -6,13 +6,84 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>me</ion-title>
+  <ion-navbar class="bar-calm b-none bar-no-border">
+    <ion-title>
+	    <div class="l-h-1x">
+	      {{data.firstname}} {{data.lastName}}
+	      <br>
+	      <span class="text-xs">@{{data.username}}</span>
+	    </div>
+  	</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="vine-profile bg-grey-200">
 
+	<!--  <ion-slide-box on-slide-changed="slideHasChanged($index)" class="calm-bg color-white">
+      <ion-slide> -->
+        <div class="wrapper-lg text-center">
+          <img src="https://www.relivvit.com/{{data.image}}" alt="" class="thumb-lg rounded b b-light b-2x">
+          <p ng-click="goFollowers()">{{data.followers}} Followers</p> 
+          <p></p>
+          <p ng-click="goFollowing()">{{data.following}} Following</p>
+          <!-- <div class="text-xs color-grey-300">7 Loops</div> -->
+        </div>
+      <!--  </ion-slide>
+      <ion-slide>
+        <div class="wrapper-lg text-center">
+          <p>
+            {{data.location}}
+          </p>
+          <p>{{data.bio}}</p>
+        </div>
+      </ion-slide>
+    </ion-slide-box> -->
+
+    <div class="wrapper-sm">
+      <button class="button button-block button-small button-light icon-left ion-gear-a font-bold b-2x m-n b-light r-2x" (click)="settings()">Settings</button>
+    </div>
+
+    <!-- <div class="button-bar bar-light m-b-md">
+      <a class="button"><span class="balanced">5 Posts</span></a>
+      <a class="button">17 Likes</a>
+    </div> -->
+
+    <div class="text-center item font-bold bg-grey-200">
+    	<p>
+    		{{data.noClipsMessage1}}
+    	</p>
+    <br>
+    	<p>
+    		{{data.noClipsMessage2}}
+    	</p>
+    </div>
+    
+    <div class="list vine-feeds" *ngFor="let clip of data.feedClips">
+  		<div class="item item-body no-padder b-none">
+    		<video controls class="video w-full" webkit-playsinline playsinline mute poster="{{clip.clipImage}}">
+      			<source [src]="clip.file" type="video/mp4">
+		      	<source [src]="clip.file" type="video/ogg">
+   			</video>
+        	<span class="badge badge-calm rounded"></span>
+        	<div class="row no-padder">
+          		<div class="col col-5 no-padder">
+            		<div class="font-bold text-ellipsis text-sm">{{clip.name}}</div>
+            		<div class="text-xs color-grey-500">Views {{clip.views}}</div>
+          		</div>
+          		<div class="font-bold text-ellipsis color-red">
+          			<p></p>
+          			<p>This Clip is {{clip.shared}}</p>
+          		</div>
+          		<div class="col no-padder text-right">
+            		<i class="icon ion-android-share red balanced b b-light b-2x r-2x wrapper-xs padder" (click)="updateShare(clip.id)"></i>
+           	 		<div class="font-bold text-ellipsis text-sm">{{clip.shareAction}}</div>
+          		</div>
+          		<div class="col no-padder text-right">
+            		<i class="icon ion-android-delete red balanced b b-light b-2x r-2x wrapper-xs padder" (click)="deleteClip(clip)"></i>
+          		</div>
+        	</div>
+  		</div>
+	</div>
 </ion-content>
