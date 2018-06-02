@@ -46,7 +46,7 @@ export class FollowersPage {
 
             data => {
 
-                console.log("Users: " + JSON.stringify(this.data));
+                console.log("Users: " + JSON.stringify(data));
 
                 function User(id, firstname, lastName, username, image, icon) {
                     this.id = id;
@@ -143,7 +143,7 @@ export class FollowersPage {
                     user.icon = 'ion-android-person-add follow';
                     this.following.pop(userId);
                     //Send REST unfollow request
-                    this.profileService.unfollow(userId, profile.sessionToken);
+                    this.profileService.unfollow(userId, this.profile.sessionToken);
                 }
             });
         }
