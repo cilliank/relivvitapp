@@ -12,7 +12,7 @@ import { GreetingPage } from '../../pages/greeting/greeting';
 
 @IonicPage()
 @Component({
-    selector: 'page-password',
+    selector: 'global',
     templateUrl: 'password.html',
 })
 export class PasswordPage {

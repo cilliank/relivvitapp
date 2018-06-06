@@ -10,7 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-clip-details',
+  selector: 'global',
   templateUrl: 'clip-details.html',
 })
 export class ClipDetailsPage {

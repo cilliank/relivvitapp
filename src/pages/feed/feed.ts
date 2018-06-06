@@ -14,12 +14,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
-  selector: 'page-feed',
+  selector: 'global',
   templateUrl: 'feed.html',
 })
 export class FeedPage {
 
-	public data: Object;
+	public data: any;
 	
 	//Get the current user profile
 	profile = this.profileService.get();

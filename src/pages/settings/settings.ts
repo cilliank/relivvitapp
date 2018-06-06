@@ -13,7 +13,7 @@ import { GreetingPage } from '../../pages/greeting/greeting';
 
 @IonicPage()
 @Component({
-    selector: 'page-settings',
+    selector: 'global',
     templateUrl: 'settings.html',
 })
 export class SettingsPage {

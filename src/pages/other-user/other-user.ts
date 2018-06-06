@@ -13,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
-  selector: 'page-other-user',
+  selector: 'global',
   templateUrl: 'other-user.html',
 })
 export class OtherUserPage {

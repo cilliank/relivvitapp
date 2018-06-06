@@ -12,7 +12,7 @@ import { OtherUserPage } from '../../pages/other-user/other-user';
 
 @IonicPage()
 @Component({
-    selector: 'page-followers',
+    selector: 'global',
     templateUrl: 'followers.html',
 })
 export class FollowersPage {

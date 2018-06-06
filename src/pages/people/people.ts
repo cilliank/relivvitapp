@@ -10,7 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-people',
+  selector: 'global',
   templateUrl: 'people.html',
 })
 export class PeoplePage {

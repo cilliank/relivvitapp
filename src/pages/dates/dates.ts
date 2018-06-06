@@ -10,7 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-dates',
+  selector: 'global',
   templateUrl: 'dates.html',
 })
 export class DatesPage {

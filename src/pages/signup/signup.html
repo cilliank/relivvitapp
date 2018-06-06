@@ -7,12 +7,41 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>signup</ion-title>
+    <ion-title>Sign Up</ion-title>
+    
+     <button class="button button-balanced" (click)="done()">
+      Done
+    </button>
+    
   </ion-navbar>
 
 </ion-header>
 
+<ion-content class="bg-black">
+    <div class="list card m">
+      <label class="item item-input">
+        <span class="input-label">First name</span>
+        <input [(ngModel)]="data.firstname" type="text" placeholder="">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Last name</span>
+        <input [(ngModel)]="data.lastName" type="text" placeholder="">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Username</span>
+        <input [(ngModel)]="data.username" type="text" placeholder="Choose a Relivvit username">
+      </label>
+      <label class="item item-input">
+      <span class="input-label">Password</span>
+        <input [(ngModel)]="data.password" type="password" placeholder="at least 6 characters">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Email</span>
+        <input [(ngModel)]="data.email" type="email" placeholder="Email address">
+      </label>
+    </div>
 
-<ion-content padding>
-
-</ion-content>
+    <p class="color-grey-500 text-center">
+      By signing up, you agree to the <br><b><a (click)="terms()" class="color-white">Terms of Service & Privacy Policy</a></b>
+    </p>
+  </ion-content>

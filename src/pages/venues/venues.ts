@@ -10,7 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-venues',
+  selector: 'global',
   templateUrl: 'venues.html',
 })
 export class VenuesPage {

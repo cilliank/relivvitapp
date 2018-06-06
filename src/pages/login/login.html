@@ -7,12 +7,35 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>login</ion-title>
+    <ion-title>Login</ion-title>
+    
+    <button class="button button-balanced" (click)="done()">
+      Done
+    </button>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="bg-black">
+    <div class="list card m">
+      <label class="item item-input">
+        <span class="input-label">Username</span>
+        <input [(ngModel)]="data.username" type="text" placeholder="username">
+      </label>
+      <label class="item item-input">
+      <span class="input-label">Password</span>
+        <input [(ngModel)]="data.password" type="password" placeholder="at least 6 characters">
+      </label>
+    </div>
 
-</ion-content>
+    <p class="color-grey-500 text-center">
+      Forget something? <b (click)="resetPassword()"><a class="color-white">Reset your password</a></b>
+    </p>
+    <p class="text-center">
+      <b><a class="color-white">{{errorMessageLine1}}</a></b>
+    </p>
+    <p class="text-center">
+      <b><a class="color-white">{{errorMessageLine2}}</a></b>
+    </p>
+  </ion-content>

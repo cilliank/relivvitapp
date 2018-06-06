@@ -17,7 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
-    selector: 'page-me',
+    selector: 'global',
     templateUrl: 'me.html',
 })
 export class MePage {

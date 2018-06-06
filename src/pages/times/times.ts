@@ -10,7 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-times',
+  selector: 'global',
   templateUrl: 'times.html',
 })
 export class TimesPage {

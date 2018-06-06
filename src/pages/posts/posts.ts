@@ -10,7 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-posts',
+  selector: 'global',
   templateUrl: 'posts.html',
 })
 export class PostsPage {

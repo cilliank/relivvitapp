@@ -10,7 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-terms',
+  selector: 'global',
   templateUrl: 'terms.html',
 })
 export class TermsPage {

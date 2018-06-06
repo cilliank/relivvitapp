@@ -10,7 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-create',
+  selector: 'global',
   templateUrl: 'create.html',
 })
 export class CreatePage {

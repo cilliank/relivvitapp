@@ -10,7 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-create-clip',
+  selector: 'global',
   templateUrl: 'create-clip.html',
 })
 export class CreateClipPage {

@@ -163,7 +163,7 @@ export class ProfileServiceProvider {
         	
         	var i = 0;
         	while(i < data.length){
-        		following.push(data[i].id);
+        		this.following.push(data[i].id);
         		i++;
         	}
         	

@@ -17,7 +17,7 @@ export class SignupProvider {
   }
 
     go(data){
-            return this.httpClient.post(api_url, data);
+            return this.httpClient.post(this.api_url, data);
     }
     
 }
