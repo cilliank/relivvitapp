@@ -4,6 +4,8 @@ import { ProfileServiceProvider } from '../../providers/profile-service/profile-
 import { PasswordPage } from '../../pages/password/password';
 import { GreetingPage } from '../../pages/greeting/greeting';
 
+import { PhotoLibrary } from '@ionic-native/photo-library';
+
 /**
  * Generated class for the SettingsPage page.
  *
@@ -18,7 +20,7 @@ import { GreetingPage } from '../../pages/greeting/greeting';
 })
 export class SettingsPage {
 
-    public data: Object;
+    public data: any;
 
     //Get the current user profile
     profile = this.ProfileService.get();
@@ -48,6 +50,8 @@ export class SettingsPage {
             'noClipsMessage2': ''
         };
     }
+    
+    public 
 
     public updateProfile(email, bio, location) {
 

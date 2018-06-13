@@ -20,62 +20,36 @@ export class ClipServiceProvider {
 		} 
   
     	setVideo(data){       
-    		video = data;
+    		this.video = data;
         }
         getVideo(){
-        	return video;      
+        	return this.video;      
         }
         setClip(data){       
-    		clip = data;
+    		this.clip = data;
         }
         getClip(){
-        	return clip;      
+        	return this.clip;      
         }
     	getShared(sessionToken){
-    	
-    		this.shared = null;
     		
     		//http://www.relivvit.com/api/rest/clips/shared?order-by=created
     		var shared_clips_url = this.api_base + 'shared?order-by=created' + '&session-token=' + '1_ffb732c2c64c8aa94cd72fbece16ae5b';
     		//var shared_clips_url = this.api_base + 'shared?order-by=created' + '&session-token=' + sessionToken + '&offset=20000';
-    		
-    		//Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
             
-            return this.httpClient.get(shared_clips_url, options);
+            return this.httpClient.get(shared_clips_url);
     	}
     	getUsersOwnClips(clipData){
     		//http://www.relivvit.com/api/rest/clips
     		var own_clips_url = this.api_base + '?userId=' + clipData.userId + '&session-token=' + clipData.sessionToken;
-    		
-    		//Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + clipData.sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
             
-            return this.httpClient.get(own_clips_url, options);
+            return this.httpClient.get(own_clips_url);
     	}
     	getOtherUsersClips(clipData){
     		//http://www.relivvit.com/api/rest/clips?shared=true&order-by=created&userId=21
     		var other_user_clips_url = this.api_base + '?shared=true&order-by=created&userId=' + clipData.userId + '&session-token=' + clipData.sessionToken;
-    		
-    		//Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + clipData.sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
             
-            return this.httpClient.get(other_user_clips_url, options);
+            return this.httpClient.get(other_user_clips_url);
     	}
     	switch(data){
     		
@@ -95,15 +69,7 @@ export class ClipServiceProvider {
             
             console.log('SessionToken in clipService.create: ' + sessionToken);
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
-            return this.httpClient.post(clips_url, data, options);
+            return this.httpClient.post(clips_url, data);
             
             
         }
@@ -112,15 +78,7 @@ export class ClipServiceProvider {
             
             console.log('SessionToken in clipService.delete: ' + sessionToken);
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
-            return this.httpClient.delete(clips_url, options);
+            return this.httpClient.delete(clips_url);
         }
         update(data,sessionToken){
             //PUT http://www.relivvit.com/api/rest/clips/435
@@ -131,19 +89,11 @@ export class ClipServiceProvider {
             var clipName = data.clipName;
             var clips_url = this.api_base + clipId  + '?session-token=' + sessionToken;
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
             var clipData = {
                 'name':clipName
             };
             
-            return this.httpClient.put(clips_url, clipData, options);
+            return this.httpClient.put(clips_url, clipData);
             
         }
         share(data,sessionToken){
@@ -156,20 +106,12 @@ export class ClipServiceProvider {
             
             console.log('Share clip url: ' + clips_url);
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
             //Don't need any, there is no body in this request, but http.post needs an object
             var shareData = {
                 
             };
             
-            return this.httpClient.post(clips_url, shareData, options);
+            return this.httpClient.post(clips_url, shareData);
             
         }
         unshare(data,sessionToken){
@@ -182,20 +124,12 @@ export class ClipServiceProvider {
             
             console.log('Unhare clip url: ' + clips_url);
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
             //Don't need any, there is no body in this request, but http.post needs an object
             var unshareData = {
                 
             };
             
-            return this.httpClient.post(clips_url, unshareData, options);
+            return this.httpClient.post(clips_url, unshareData);
             
         }
         increasePlayCount(data,sessionToken){
@@ -206,15 +140,7 @@ export class ClipServiceProvider {
         	var playcount_url = this.api_base + clipId + '/playcount';
         	
         	console.log('Increasing playcount for clip: ' + clipId);
-        	
-        	//Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
             
-            return this.httpClient.post(playcount_url, unshareData, options);
+            return this.httpClient.post(playcount_url, data);
         }
 }

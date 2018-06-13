@@ -3,12 +3,13 @@ Having the cahce-view = false, forces the controller to re-evaluate so that the 
 <ion-content class="view-class" cache-view="false" view-title="Timeline">
   <ion-navbar>
 
-    <ion-icon name="person-add-outline" large (click)="openPeople()"></ion-icon>
+   
     <img src="assets/imgs/vine_logo_banner.png" width="100">
+    <ion-icon name="person-add-outline" large (click)="openPeople()"></ion-icon>
   </ion-navbar>
   
-  <ion-buttons side="primary">
-    
+  <ion-buttons side="secondary">
+     
   </ion-buttons>
 
   <ion-content class="vine-feeds">
@@ -54,7 +55,7 @@ Having the cahce-view = false, forces the controller to re-evaluate so that the 
 		      	 <button ng-click="share('i','clip.file','clip.image','clip.name');" class="button button-light">
 		      		<i class="icon ion-social-instagram"></i>
 		      	</button>
-		      	<button (click)="saveToCameraRoll('clip.file')" class="button button-light">
+		      	<button (click)="saveToCameraRoll(clip.file)" class="button button-light">
 		      		<i class="icon ion-ios-download-outline"></i>
 		      	</button>
 		      

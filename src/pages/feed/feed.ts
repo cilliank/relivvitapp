@@ -3,7 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { ClipServiceProvider } from '../../providers/clip-service/clip-service';
 import { OtherUserPage } from '../../pages/other-user/other-user';
+import { PeoplePage } from '../../pages/people/people';
 import { DomSanitizer } from '@angular/platform-browser';
+
+import { PhotoLibrary } from '@ionic-native/photo-library';
 
 /**
  * Generated class for the FeedPage page.
@@ -26,7 +29,8 @@ export class FeedPage {
 
  	constructor(public navCtrl: NavController, public navParams: NavParams, 
   					public profileService: ProfileServiceProvider, public clipService: ClipServiceProvider,
-  					public sanitizer: DomSanitizer) {
+  					public sanitizer: DomSanitizer,
+  					private photoLibrary: PhotoLibrary) {
   
 	  	
 		
@@ -76,10 +80,14 @@ export class FeedPage {
 		var sessionToken = this.data.sessionToken;
 		
 		//Get the most recently created videos for user which this user follows
+		
+		var data : any;
+		
 		clipService.getShared(sessionToken).subscribe(
 	      		
-	      	  data => {
+	      	  response => {
 	
+			  data = response;
 			  
 			  console.log("Feed clips: " + JSON.stringify(data));
 			  
@@ -125,24 +133,28 @@ export class FeedPage {
   
 	public share(type,file,image,clipName){
 		if(type == 'f'){		
-			$cordovaSocialSharing.shareViaFacebook(clipName + " Watch It. Share It. Relivvit.", image, file);
+			
 		}
 		if(type == 't'){
-			$cordovaSocialSharing.shareViaTwitter(clipName + " Watch It. Share It. Relivvit.", image, file);
+			
 		}
 		if(type == 'w'){
-			$cordovaSocialSharing.shareViaWhatsApp(clipName + " Watch It. Share It. Relivvit.", image, file);
+		
 		}
 		if(type == 'i'){
-			$cordovaSocialSharing.shareViaInstagram(clipName + " Watch It. Share It. Relivvit.", image, file);
+		
 		}
 	};
 	
 	public goUser(data){
 	
+		var data : any;
+	
 		this.profileService.getOtherUser(data, this.data.sessionToken).subscribe(
 	      		
-	      	  data => {
+	      	  response => {
+	      	  
+	      	  	data = response;
 			
 				this.profileService.setOtherUserLocal(data);
 			
@@ -153,17 +165,26 @@ export class FeedPage {
 	};
 	
 	public saveToCameraRoll(file){
-		console.log("Download to camera roll.");
-		cordova.saveToCameraRoll.saveImage(url, album, function (libraryItem) {
-			console.log("Download to camera roll successful.");
-		},
-		function(error){
-			
-		});
+		console.log("Download to camera roll. " + file);
+		
+		var data : any;
+		
+		this.photoLibrary.requestAuthorization({}).then(
+		
+			response => {
+				data = response;
+				
+				var fileStr = file.toString();
+				
+				this.photoLibrary.saveVideo(fileStr,"Relivvit Videos");
+				
+			}
+		);	
+		
 	}
 
   	public openPeople() {
-		$state.go('home.people');
+		this.navCtrl.push(PeoplePage);
   	};
 
   	ionViewDidLoad() {

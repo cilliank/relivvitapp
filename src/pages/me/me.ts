@@ -22,7 +22,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class MePage {
 
-    public data: Object;
+    public data: any;
 
     //Get the current user profile
     profile = this.ProfileService.get();
@@ -85,10 +85,14 @@ export class MePage {
             'userId': this.profile.userId
         }
 
+        var data : any;
+        
         //Get the most recently created videos for user which this user follows
         ClipService.getUsersOwnClips(clipData).subscribe(
 
-            data => {
+            response => {
+                
+                data = response;
 
                 console.log("Feed clips: " + JSON.stringify(data));
 
@@ -222,9 +226,15 @@ export class MePage {
 
         if (this.data.share === true) {
             //Share the clip
+            
+            var data : any;
+            
             this.ClipService.share(clipParams, this.profile.sessionToken).subscribe(
 
-                data => {
+                response => {
+                    
+                    data = response;
+                    
                     console.log(data);
 
                     //$state.go('home.me', params, { reload: true});
@@ -240,9 +250,15 @@ export class MePage {
         }
         else {
             //Unshare the clip
+            
+            var data : any;
+            
             this.ClipService.unshare(clipParams, this.profile.sessionToken).subscribe(
 
-                data => {
+                response => {
+                    
+                    response = data;
+                    
                     console.log(data);
 
                     //Just go to timeline page without sharing 
@@ -265,28 +281,7 @@ export class MePage {
     public uploadProfilePic() {
         console.log('Uploading profile pic...');
 
-        var capturedImage = '';
-
-        var options = {
-            quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            allowEdit: true,
-            encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 200,
-            targetHeight: 200,
-            popoverOptions: CameraPopoverOptions,
-            saveToPhotoAlbum: false,
-            correctOrientation: true
-        };
-
-        Camera.getPicture(options).subscribe(
-
-            imageData => {
-                capturedImage = "data:image/jpeg;base64," + imageData;
-            }, function(err) {
-                alert(err);
-            });
+        
     }
 
     ionViewDidLoad() {

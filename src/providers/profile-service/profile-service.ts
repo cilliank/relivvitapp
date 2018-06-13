@@ -11,8 +11,8 @@ import { HttpClient } from '@angular/common/http';
 export class ProfileServiceProvider {
 
 	api_base = 'http://138.201.90.98/api/rest/user/';
-    profile: Object;
-    otherUser; Object;
+    profile: any;
+    otherUser; any;
     following = [];
     signupPartialData = {
     		 'firstname':'',
@@ -21,11 +21,10 @@ export class ProfileServiceProvider {
 	         'password':'',
 	         'email':''
 	        };
-    
-
 
   	constructor(public httpClient:HttpClient) {
-  		this.profile = {};
+
+		this.profile = {};
   		this.otherUser = {};
   		//TODO - Remove, during development only
   		this.profile.sessionToken = '1_2acefc49fede163cd6e49655acb8a79f';
@@ -64,15 +63,7 @@ export class ProfileServiceProvider {
             console.log('SessionToken in profileService.save: ' + sessionToken);
             console.log('Profile in profileService.save: ' + JSON.stringify(data));
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
-            return this.httpClient.put(profile_url, data, options);
+            return this.httpClient.put(profile_url, data);
             
         }
         getOtherUser(username,sessionToken){
@@ -81,15 +72,7 @@ export class ProfileServiceProvider {
             
             var user_url = profile_url + 'public/' + username + '?include-followers=false&include-following=false' + '&session-token=' + sessionToken;
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
-            return this.httpClient.get(user_url, {}, options);
+            return this.httpClient.get(user_url, {});
             
         }
         checkUserExists(username,sessionToken){
@@ -98,15 +81,7 @@ export class ProfileServiceProvider {
             
             var user_url = profile_url + 'check?username=' + username + '&session-token=' + sessionToken;
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
-            return this.httpClient.get(user_url, {}, options);
+            return this.httpClient.get(user_url, {});
         }
         getAllUsers(data,sessionToken){
             //GET http://www.relivvit.com/api/rest/user/all
@@ -114,15 +89,7 @@ export class ProfileServiceProvider {
             
             var user_url = profile_url + 'all' + '?exclude-already-following=true' + '&session-token=' + sessionToken;
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
-            return this.httpClient.get(user_url, options);
+            return this.httpClient.get(user_url);
             
         }
         getFollowerUsers(data,sessionToken){
@@ -131,15 +98,7 @@ export class ProfileServiceProvider {
             
             var user_url = profile_url + 'public/' + data  + '?session-token=' + sessionToken;
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
-            return this.httpClient.get(user_url, options);
+            return this.httpClient.get(user_url);
             
         }
         getFollowingUsers(data,sessionToken){
@@ -148,15 +107,7 @@ export class ProfileServiceProvider {
             
             var user_url = profile_url + 'public/' + data  + '?session-token=' + sessionToken;
             
-            //Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
-            
-            return this.httpClient.get(user_url, options);
+            return this.httpClient.get(user_url);
             
         }
         setFollowing(data){
@@ -179,75 +130,63 @@ export class ProfileServiceProvider {
         	var follow_url = this.api_base + 'follow' + '?session-token=' + sessionToken;
         	
         	//Update local records
-        	following.push(userId);
-        	if(otherUser.followers != null){
-            	otherUser.followers.push(profile.userId);
-            	otherUser.numFollowers++;
+        	this.following.push(userId);
+        	if(this.otherUser.followers != null){
+            	this.otherUser.followers.push(this.profile.userId);
+            	this.otherUser.numFollowers++;
         	}
         	else{
-        		if(otherUser != ""){
-            		otherUser.followers.push(profile.userId);
-            		otherUser.numFollowers++;
+        		if(this.otherUser != ""){
+            		this.otherUser.followers.push(this.profile.userId);
+            		this.otherUser.numFollowers++;
         		}
 
         	}
-
-        	
-        	//Make REST call
-        	//Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
             
             var data = {
                 'userId': userId
             };
             
-            return this.httpClient.post(follow_url, data, options).then(function(resp){
-            	profile.following++;
-                return resp.data;
-            });
+            return this.httpClient.post(follow_url, data).subscribe(
+            	response => {
+            		this.profile.following++;
+                	return response;
+            	});
         	
         }
         unfollow(userId, sessionToken){
         	
         	//Update local records
-        	following.pop(userId);
-        	if(otherUser.followers != null){
-            	otherUser.followers.pop(profile.userId);
-            	otherUser.numFollowers--;
+        	
+        	var index = this.following.indexOf(userId, 0);
+            if (index > -1) {
+                this.following.splice(index, 1);
+            }
+        	
+        	if(this.otherUser.followers != null){
+            	this.otherUser.followers.pop(this.profile.userId);
+            	this.otherUser.numFollowers--;
         	}
         	else{
-        		if(otherUser != ""){
-            		otherUser.followers.pop(profile.userId);
-            		otherUser.numFollowers--;
+        		if(this.otherUser != ""){
+            		this.otherUser.followers.pop(this.profile.userId);
+            		this.otherUser.numFollowers--;
         		}
 
         	}
         	
         	//Make REST call
         	var unfollow_url = this.api_base + 'unfollow' + '?session-token=' + sessionToken;
-
-        	//Make REST call
-        	//Set cookie
-            let headers = new Headers(); //Headers
-            headers.append('Cookie', 'session-token=' + sessionToken);
-            var options =  { //Set request options
-                headers: headers,
-                withCredentials: true
-            };
             
             var data = {
                 'userId': userId
             };
             
-            return this.httpClient.post(unfollow_url, data, options).then(function(resp){
-            	profile.following--;
-                return resp.data;
-            });
+            return this.httpClient.post(unfollow_url, data).subscribe(
+            	response => {
+            		this.profile.following--;
+                	return response;
+            	});
         }
         setOtherUserLocal(data){
             

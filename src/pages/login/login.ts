@@ -19,7 +19,7 @@ import { TabsPage } from '../../pages/tabs/tabs';
 })
 export class LoginPage {
 
-    public data: Object;
+    public data: any;
 
     errorMessageLine1 = '';
     errorMessageLine2 = '';
@@ -58,15 +58,20 @@ export class LoginPage {
                 'email': email
             }
 
+            var responseData : any;
+            
             this.Login.reset(resetData)
                 .subscribe(
                 data => {
+                    
+                    responseData = data;
+                    
                     loading.dismiss();
-                    if (data.error == null) {
+                    if (responseData.error == null) {
                         createResetPopup('Success', 'Check your emails and follow the instructions.', this.alertCtrl);
                     }
                     else {
-                        createResetPopup('Error', data.error, this.alertCtrl);
+                        createResetPopup('Error', responseData.error, this.alertCtrl);
                     }
                 },
                 error => {
@@ -107,13 +112,16 @@ export class LoginPage {
         loading.present();
 
         var loginData = { 'username': this.data.username, 'password': this.data.password };
+        
+        var responseData : any;
 
         this.Login.go(loginData)
             .subscribe(
             data => {
 
+                responseData = data;
 
-                this.data.sessionToken = data["session-token"];
+                this.data.sessionToken = responseData["session-token"];
 
                 //Store the user in local Storage so that it can be checked the next time someone tries to Login
                 //And then that person is logged in automatically. Prevents having to login fresh everytime
@@ -121,22 +129,22 @@ export class LoginPage {
                 window.localStorage.setItem("password", this.data.password);
 
                 var userParams = {
-                    userId: data["user-id"],
-                    username: data.account.username,
-                    firstname: data.account.firstname,
-                    lastName: data.account.lastName,
-                    email: data.account.email,
-                    dateOfBirth: data.account.dateOfBirth,
-                    bio: data.account.bio,
-                    followers: data.account.numFollowers,
-                    following: data.account.numFollowing,
-                    image: data.account.image,
-                    location: data.account.location,
+                    userId: responseData["user-id"],
+                    username: responseData.account.username,
+                    firstname: responseData.account.firstname,
+                    lastName: responseData.account.lastName,
+                    email: responseData.account.email,
+                    dateOfBirth: responseData.account.dateOfBirth,
+                    bio: responseData.account.bio,
+                    followers: responseData.account.numFollowers,
+                    following: responseData.account.numFollowing,
+                    image: responseData.account.image,
+                    location: responseData.account.location,
                     sessionToken: this.data.sessionToken
                 };
                 this.ProfileService.set(userParams);
 
-                this.ProfileService.setFollowing(data.account.following);
+                this.ProfileService.setFollowing(responseData.account.following);
 
                 setTimeout(() => {
                     loading.dismiss();

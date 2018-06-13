@@ -17,7 +17,7 @@ import { GreetingPage } from '../../pages/greeting/greeting';
 })
 export class PasswordPage {
 
-    public data: Object;
+    public data: any;
 
     //Get the current user profile
     profile = this.ProfileService.get();

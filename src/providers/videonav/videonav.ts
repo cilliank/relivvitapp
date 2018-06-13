@@ -45,18 +45,10 @@ export class VideonavProvider {
         var venueId = data.venueId;
         var created = data.created;
         var sessionToken = data.sessionToken;
-            
-        //Set cookie
-        let headers = new Headers(); //Headers
-        headers.append('Cookie', 'session-token=' + sessionToken);
-        var options =  { //Set request options
-            headers: headers,
-            withCredentials: true
-        };
         
         var cameras_url = this.api_base + 'videos?venue_id=' + venueId + '&created=' + created + '&session-token=' + sessionToken;
         
-        return this.httpClient.get(cameras_url, options);
+        return this.httpClient.get(cameras_url);
     }
     browseTimes(data){
         //videos?venue_id=1&created=2017-11-04&camera=1
@@ -65,36 +57,20 @@ export class VideonavProvider {
         var camera = data.camera;
         var sessionToken = data.sessionToken;
         
-        //Set cookie
-        let headers = new Headers(); //Headers
-        headers.append('Cookie', 'session-token=' + sessionToken);
-        var options =  { //Set request options
-            headers: headers,
-            withCredentials: true
-        };
-        
         var times_url = this.api_base + 'videos?venue_id=' + venueId + '&created=' + created + '&camera=' + camera + '&session-token=' + sessionToken;
         
-        return this.httpClient.get(times_url, options);
+        return this.httpClient.get(times_url);
     }
     browseVideo(data){
         //https://www.relivvit.com/api/rest/videos/52995
         var videoId = data.video;
         var sessionToken = data.sessionToken;
         
-        //Set cookie
-        let headers = new Headers(); //Headers
-        headers.append('Cookie', 'session-token=' + sessionToken);
-        var options =  { //Set request options
-            headers: headers,
-            withCredentials: true
-        };
-        
         var video_url = this.api_base + 'videos/' + videoId + '?session-token=' + sessionToken;
         
         console.log('Video Url: ' + video_url);
         
-        return this.httpClient.get(video_url, options);
+        return this.httpClient.get(video_url);
     }
     setDates(data){
         this.dates = data;

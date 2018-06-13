@@ -14,5 +14,27 @@
 
 
 <ion-content padding>
+    <!-- <div class="button-bar bar-light">
+      <a class="button"><img src="img/vine_logo_active.png" width="32" alt=""></a>
+      <a class="button"><i class="icon ion-social-twitter"></i></a>
+      <a class="button"><i class="icon ion-ios-telephone"></i></a>
+    </div> -->
 
-</ion-content>
+    <div class="list">
+      <div class="item item-divider text-sm">Suggestions</div>
+      <div class="item item-avatar avatar-small b-none" *ngFor="let user of data.users">
+        <img class="b b-2x b-white" src="{{user.image}}">
+        <!-- <span class="badge badge-calm rounded"><i class="icon ion-social-twitter"></i></span> -->
+        <div class="row no-padder">
+          <div class="col col-75 no-padder">
+            <div class="font-bold text-ellipsis text-sm" (click)="goUser(user.username)">{{user.firstname}} {{user.lastName}}</div>
+            <div class="font-bold text-ellipsis text-sm" (click)="goUser(user.username)">@{{user.username}}</div>
+            <div class="text-xs color-grey-500">Suggested for you</div>
+          </div>
+          <div class="col no-padder text-right">
+            <i class="icon {{user.icon}} balanced b b-light b-2x r-2x wrapper-xs padder" (click)="followOrUnfollow(user.id,user.icon)"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>

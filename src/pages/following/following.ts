@@ -17,7 +17,7 @@ import { OtherUserPage } from '../../pages/other-user/other-user';
 })
 export class FollowingPage {
 
-    public data: Object;
+    public data: any;
 
     profile = this.profileService.get();
     following = this.profileService.getFollowing();
@@ -44,9 +44,13 @@ export class FollowingPage {
             'users': []
         };
 
+        var data : any;
+        
         this.profileService.getFollowingUsers(this.data.username, this.data.sessionToken).subscribe(
 
-            data => {
+            response => {
+                
+                data = response;
 
                 console.log("Users: " + JSON.stringify(data));
 
@@ -98,10 +102,14 @@ export class FollowingPage {
 
         //Get the current user profile
         var profile = this.profileService.get();
+        
+        var data : any;
 
         this.profileService.getOtherUser(data, profile.sessionToken).subscribe(
 
-            data => {
+            response => {
+                
+                data = response;
 
                 this.profileService.setOtherUserLocal(data);
 

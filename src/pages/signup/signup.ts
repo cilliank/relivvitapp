@@ -21,7 +21,7 @@ import { VenuesPage } from '../../pages/venues/venues';
 })
 export class SignupPage {
 
-    public data: Object;
+    public data: any;
 
     //Check if user has already logged in on this phone
     username = window.localStorage.getItem("username");
@@ -35,9 +35,13 @@ export class SignupPage {
         if (this.username != null) {
             var loginData = { 'username': this.username, 'password': this.password };
 
+            var user : any;
+            
             this.Login.go(loginData).subscribe(
 
-                user => {
+                data => {
+                    
+                    user = data;
 
                     this.data.sessionToken = user.data["session-token"];
 
@@ -95,17 +99,22 @@ export class SignupPage {
             'password': this.data.password,
             'email': this.data.email
         };
+        
+        var data : any;
 
         this.Signup.go(signupData).subscribe(
 
-            data => {
+            signupResponse => {
+                
                 //Then signup was successful 
                 //So log the user in and take them to the add friends page
                 var loginData = { 'username': this.data.username, 'password': this.data.password };
 
                 this.Login.go(loginData).subscribe(
 
-                    data => {
+                    loginResponse => {
+                        
+                        data = loginResponse;
 
                         this.data.sessionToken = data["session-token"];
 
