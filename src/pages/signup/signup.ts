@@ -23,47 +23,10 @@ export class SignupPage {
 
     public data: any;
 
-    //Check if user has already logged in on this phone
-    username = window.localStorage.getItem("username");
-    password = window.localStorage.getItem("password");
-
     constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public alertCtrl: AlertController,
         public Signup: SignupProvider,
         public Login: LoginProvider,
         public ProfileService: ProfileServiceProvider) {
-
-        if (this.username != null) {
-            var loginData = { 'username': this.username, 'password': this.password };
-
-            var user : any;
-            
-            this.Login.go(loginData).subscribe(
-
-                data => {
-                    
-                    user = data;
-
-                    this.data.sessionToken = user.data["session-token"];
-
-                    var userParams = {
-                        userId: user.data["user-id"],
-                        username: user.data.account.username,
-                        firstname: user.data.account.firstname,
-                        lastName: user.data.account.lastName,
-                        email: user.data.account.email,
-                        dateOfBirth: user.data.account.dateOfBirth,
-                        bio: user.data.account.bio,
-                        followers: user.data.account.numFollowers,
-                        following: user.data.account.numFollowing,
-                        image: user.data.account.image,
-                        location: user.data.account.location,
-                        sessionToken: this.data.sessionToken
-                    };
-                    this.ProfileService.set(userParams);
-                    this.ProfileService.setFollowing(user.data.account.following);
-                    this.navCtrl.push(TabsPage);
-                });
-        }
 
         //Fetch the partial data (if present)
         this.data = this.ProfileService.getSignupPartialData();

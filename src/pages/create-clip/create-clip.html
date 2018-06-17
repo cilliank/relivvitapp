@@ -14,5 +14,45 @@
 
 
 <ion-content padding>
-
+	<div class="item item-body no-padder b-none" >
+    <video id="createVideo" controls class="video w-full" autoplay playsinline mute #videoPlayer>
+      <source [src]="data.videoToGet" type="video/mp4">
+      <source [src]="data.videoToGet" type="video/ogg">
+    </video>
+</div>
+<div class="button-bar">
+	<button (click)="skip(-600)" style="font-size: 9px;"
+		class="button button-positive button-block">&lt;&lt;10m</button>
+	<button (click)="skip(-60)" style="font-size: 9px;"
+		class="button button-positive button-block">&lt;&lt;1m</button>
+	<button (click)="skip(-30)" style="font-size: 9px;"
+		class="button button-positive button-block">&lt;&lt;30s</button>
+	<button (click)="skip(30)" style="font-size: 9px;"
+		class="button button-positive button-block">30s&gt;&gt;</button>
+	<button (click)="skip(60)" style="font-size: 9px;"
+		class="button button-positive button-block">1m&gt;&gt;</button>
+	<button (click)="skip(600)" style="font-size: 9px;"
+		class="button button-positive button-block">10m&gt;&gt;</button>
+</div>
+<div class="button-bar">
+	<button (click)="switchCamera(1)" style="font-size: 18px;"
+		class="button button-positive button-block">Camera 1</button>
+	<button (click)="switchCamera(2)" style="font-size: 18px;"
+		class="button button-positive button-block">Camera 2</button>
+</div>
+<button (click)="create()" style="font-weight: 500;"
+	class="button button-assertive button-block">Create Clip</button>
+	
+	<!-- For debugging
+	<div class="venue-thumbnail h3">
+        Camera {{data.camera}} {{data.videoTime}}
+    </div> 
+ 	
+ 	<div class="carousel">
+	 	<ion-slides scroll="true" slider="slider" options="options">
+	  		<ion-slide-page *ngFor="let clip of data.createdClips">
+	    		<img src='http://138.201.90.98{{clip.image}}' width=200 height=120 (click)="clipDetails(clip)"></img>
+	  		</ion-slide-page>
+		</ion-slides>
+	</div> -->
 </ion-content>

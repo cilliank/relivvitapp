@@ -3350,6 +3350,7 @@ body.grade-c {
   bottom: 0;
   left: 0;
   overflow: hidden;
+  overflow-y: hidden;
   margin-top: -1px;
   padding-top: 1px;
   margin-bottom: -1px;
@@ -8755,6 +8756,19 @@ a.button {
  * notice we purposely do not use words like "red" or "blue", but
  * instead have colors which represent an emotion or generic theme.
  */
+ 
+ 
+ /*
+ Custom - added by CK
+ */
+.toolbar-background {
+    background-color: black;
+}
+.toolbar-title {
+    color: white;
+}
+/*******/
+ 
 .light, a.light {
   color: #fff; }
 
@@ -9397,7 +9411,8 @@ html [segment], html segment {
   line-height: 1.42857143; }
 
 .l-h-1x {
-  line-height: 1.2; }
+  line-height: 1.2;
+  color: "#fff"; }
 
 .l-h-2x {
   line-height: 2em; }

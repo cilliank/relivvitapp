@@ -7,12 +7,20 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>times</ion-title>
+    <ion-title>Times</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+	<div class="list vine-feeds" *ngFor="let time of times">
+	<div class="grid-container">
+  		<div class="venue-thumbnail h3 text-center grid-item" (click)="getVideo(time)">
+        	{{time.value}}
+    	</div>
+    </div>
+    <hr>
+	</div>
 </ion-content>
+

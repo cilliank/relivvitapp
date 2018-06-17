@@ -210,19 +210,21 @@ export class MePage {
             'sessionToken': this.profile.sessionToken
         }
 
+        var thisShare = false;
+        
         //Determine the current shared state of the clip, then perform the opposite
         this.data.feedClips.forEach(function(clip) {
             if (clip.id == clipParams.clipId) {
                 if (clip.shared == 'shared') {
-                    this.data.share = false;
+                    thisShare = false;
                 }
                 else {
-                    this.data.share = true;
+                    thisShare = true;
                 }
             }
         })
 
-
+        this.data.share = thisShare;
 
         if (this.data.share === true) {
             //Share the clip

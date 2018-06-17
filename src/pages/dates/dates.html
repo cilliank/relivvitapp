@@ -14,5 +14,10 @@
 
 
 <ion-content padding>
-
+	<div class="list vine-feeds" *ngFor="let date of dates">
+  	<div class="venue-thumbnail h3 text-center" (click)="submitCameras(date.value)">
+        {{date.value}}
+    </div>
+    <hr>
+</div>
 </ion-content>

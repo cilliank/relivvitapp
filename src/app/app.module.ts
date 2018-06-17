@@ -4,6 +4,9 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { PhotoLibrary } from '@ionic-native/photo-library';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { MyApp } from './app.component';
 
 import { SignupPage } from '../pages/signup/signup';
@@ -22,6 +25,10 @@ import { PasswordPage } from '../pages/password/password';
 import { TermsPage } from '../pages/terms/terms';
 import { ResetPage } from '../pages/reset/reset';
 import { VenuesPage } from '../pages/venues/venues';
+import { TimesPage } from '../pages/times/times';
+import { DatesPage } from '../pages/dates/dates';
+import { CreateClipPage } from '../pages/create-clip/create-clip';
+import { ClipDetailsPage } from '../pages/clip-details/clip-details';
 
 import { SignupPageModule } from '../pages/signup/signup.module';
 import { LoginPageModule } from '../pages/login/login.module';
@@ -38,6 +45,10 @@ import { PasswordPageModule } from '../pages/password/password.module';
 import { TermsPageModule } from '../pages/terms/terms.module';
 import { ResetPageModule } from '../pages/reset/reset.module';
 import { VenuesPageModule } from '../pages/venues/venues.module';
+import { TimesPageModule } from '../pages/times/times.module';
+import { DatesPageModule } from '../pages/dates/dates.module';
+import { CreateClipPageModule } from '../pages/create-clip/create-clip.module';
+import { ClipDetailsPageModule } from '../pages/clip-details/clip-details.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -71,7 +82,11 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     PasswordPageModule,
     ResetPageModule,
     TermsPageModule,
-    VenuesPageModule
+    VenuesPageModule,
+    DatesPageModule,
+    TimesPageModule,
+    CreateClipPageModule,
+    ClipDetailsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -91,7 +106,11 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     PasswordPage,
     ResetPage,
     TermsPage,
-    VenuesPage
+    VenuesPage,
+    DatesPage,
+    TimesPage,
+    CreateClipPage,
+    ClipDetailsPage
   ],
   providers: [
     StatusBar,
@@ -102,7 +121,11 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     LoginProvider,
     SignupProvider,
     VideonavProvider,
-    PhotoLibrary
+    PhotoLibrary,
+    SocialSharing,
+    FileTransfer,
+    FileTransferObject,
+    File
   ]
 })
 export class AppModule {}

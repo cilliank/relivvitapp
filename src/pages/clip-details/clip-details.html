@@ -14,5 +14,16 @@
 
 
 <ion-content padding>
-
+	<video controls class="video w-full" playsinline mute poster="{{data.clipImage}}">
+      <source [src]="data.clipFile" type="video/mp4">
+      <source [src]="data.clipFile" type="video/ogg">
+    </video>
+    
+    <ion-input type="text" placeholder="" [value]="data.clipName"></ion-input>
+    
+    <!--  <form class="list">
+      <ion-toggle toggle-class="toggle-positive" [(ngModel)]="data.share">Share to Timeline</ion-toggle>
+    </form> -->
+    <button (click)="update()" style="font-weight:500;" class="button button-assertive button-block">Save Clip</button>
+  
 </ion-content>

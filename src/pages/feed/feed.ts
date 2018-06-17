@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { ClipServiceProvider } from '../../providers/clip-service/clip-service';
 import { OtherUserPage } from '../../pages/other-user/other-user';
 import { PeoplePage } from '../../pages/people/people';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { PhotoLibrary } from '@ionic-native/photo-library';
 
@@ -22,6 +25,13 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
 })
 export class FeedPage {
 
+	private static options = {
+    	message: '', // not supported on some apps (Facebook, Instagram)
+    	subject: '', // for email
+    	files: [''], // an array of filenames either locally or remotely
+    	url: ''
+  	};
+  
 	public data: any;
 	
 	//Get the current user profile
@@ -30,7 +40,10 @@ export class FeedPage {
  	constructor(public navCtrl: NavController, public navParams: NavParams, 
   					public profileService: ProfileServiceProvider, public clipService: ClipServiceProvider,
   					public sanitizer: DomSanitizer,
-  					private photoLibrary: PhotoLibrary) {
+  					private photoLibrary: PhotoLibrary,
+  					private socialSharing: SocialSharing,
+  					private transfer: FileTransfer,
+  					private file: File) {
   
 	  	
 		
@@ -132,16 +145,40 @@ export class FeedPage {
   	};
   
 	public share(type,file,image,clipName){
-		if(type == 'f'){		
+		if(type == 'f'){
+			this.socialSharing.shareViaFacebook(clipName, file, file).then(() => {
+  				// Success!
+  				console.log('Sharing to Facebook: ' + clipName);
+			}).catch(() => {
+  				// Error!
+			});	
 			
 		}
 		if(type == 't'){
+			this.socialSharing.shareViaTwitter(clipName, file, file).then(() => {
+  				// Success!
+  				console.log('Sharing to Twitter: ' + clipName);
+			}).catch(() => {
+  				// Error!
+			});	
 			
 		}
 		if(type == 'w'){
+			this.socialSharing.shareViaWhatsApp(clipName, file, file).then(() => {
+  				// Success!
+  				console.log('Sharing to Whatsapp: ' + clipName);
+			}).catch(() => {
+  				// Error!
+			});	
 		
 		}
 		if(type == 'i'){
+			this.socialSharing.shareViaInstagram(clipName, file).then(() => {
+  				// Success!
+  				console.log('Sharing to Instagram: ' + clipName);
+			}).catch(() => {
+  				// Error!
+			});	
 		
 		}
 	};
@@ -167,7 +204,7 @@ export class FeedPage {
 	public saveToCameraRoll(file){
 		console.log("Download to camera roll. " + file);
 		
-		var data : any;
+		/*var data : any;
 		
 		this.photoLibrary.requestAuthorization({}).then(
 		
@@ -180,6 +217,21 @@ export class FeedPage {
 				
 			}
 		);	
+		
+		const fileTransfer: FileTransferObject = this.transfer.create();
+          fileTransfer.download(file, this.file.applicationStorageDirectory + file).then((entry) => {
+
+             this.options.message = " Your message";
+             this.options.subject = "Your Subject";
+             this.options.files = [entry.toURL()];
+             this.options.url = "https://www.google.com.tr/";
+
+             SocialSharing.shareWithOptions(this.options);
+
+          }, 
+          (error) => {
+          
+          }); */
 		
 	}
 

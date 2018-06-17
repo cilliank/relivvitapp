@@ -1,16 +1,29 @@
-<!-- cache-view is set to false for this page because after a clip is created we want to navigate back to this page
-Having the cahce-view = false, forces the controller to re-evaluate so that the new clip is included in the feeds -->
-<ion-content class="view-class" cache-view="false" view-title="Timeline">
-  <ion-navbar>
+  <ion-header>
 
-   
-    <img src="assets/imgs/vine_logo_banner.png" width="100">
-    <ion-icon name="person-add-outline" large (click)="openPeople()"></ion-icon>
-  </ion-navbar>
+    
+  <ion-navbar>
+	<ion-title>
+		<img src="assets/imgs/vine_logo_banner.png" width="100">
+	</ion-title>
   
-  <ion-buttons side="secondary">
-     
-  </ion-buttons>
+  	<ion-buttons end>
+  		<button (click)="openPeople()" class="button">
+		      		<ion-icon name="person-add"></ion-icon>
+		      	</button>
+  	</ion-buttons>
+    
+  </ion-navbar>
+
+</ion-header>
+
+<!-- 
+You can use the <ion-buttons> directive inside of <ion-navbar> 
+to do this. <ion-buttons start> will add a button to the left side and <ion-buttons end> will add it to the right.
+<button (click)="share('f',clip.file,clip.image,clip.name);" class="button button-light">
+		      		 <ion-icon name="logo-facebook"></ion-icon>
+		      	</button>
+-->
+
 
   <ion-content class="vine-feeds">
     <ion-refresher on-refresh="refresh()" pulling-icon="ion-chevron-up"></ion-refresher>
@@ -43,17 +56,17 @@ Having the cahce-view = false, forces the controller to re-evaluate so that the 
 		
 		      <div center class="actions row no-padder row-center color-grey-500">
 		      	
-		      	<button (click)="share('f','clip.file','clip.image','clip.name');" class="button button-light">
-		      		<i class="icon ion-social-facebook"></i>
+		      	<button (click)="share('f',clip.file,clip.image,clip.name);" class="button button-light">
+		      		 <ion-icon name="logo-facebook"></ion-icon>
 		      	</button>
-		      	 <button ng-click="share('w','clip.file','clip.image','clip.name');" class="button button-light">
-		       		<i class="icon ion-social-whatsapp"></i>
+		      	 <button (click)="share('w',clip.file,clip.image,clip.name);" class="button button-light">
+		       		 <ion-icon name="logo-whatsapp"></ion-icon>
 		      	</button>
-		      	<button (click)="share('t','clip.file','clip.image','clip.name');" class="button button-light">
-		      		<i class="icon ion-social-twitter"></i>
+		      	<button (click)="share('t',clip.file,clip.image,clip.name);" class="button button-light">
+		      		 <ion-icon name="logo-twitter"></ion-icon>
 		      	</button>
-		      	 <button ng-click="share('i','clip.file','clip.image','clip.name');" class="button button-light">
-		      		<i class="icon ion-social-instagram"></i>
+		      	 <button (click)="share('i',clip.file,clip.image,clip.name);" class="button button-light">
+		      		 <ion-icon name="logo-instagram"></ion-icon>
 		      	</button>
 		      	<button (click)="saveToCameraRoll(clip.file)" class="button button-light">
 		      		<i class="icon ion-ios-download-outline"></i>
