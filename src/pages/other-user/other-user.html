@@ -7,23 +7,27 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>other-user</ion-title>
+    <ion-title>@{{data.username}}</ion-title>
+    
+    <ion-buttons end>
+  		<button (click)="followOrUnfollow(data.userId,data.icon)" class="button calm">
+		      		{{data.icon}}
+		</button> 
+  	</ion-buttons>
+    
   </ion-navbar>
+  
+    	
+
 
 </ion-header>
 
 
 <ion-content padding>
-  	
-  	<ion-buttons side="secondary">
-	    <i class="icon {{data.icon}} balanced b b-light b-2x r-2x wrapper-xs padder" (click)="followOrUnfollow(data.userId,data.icon)"></i>  
-  	</ion-buttons>
   		
-  <ion-title>
-    <div class="l-h-1x">
+  <ion-title color="dark">
+    <div class="dark">
       {{data.firstname}} {{data.lastName}}
-      <br>
-      <span class="text-xs">@{{data.username}}</span>
     </div>
   </ion-title>
 

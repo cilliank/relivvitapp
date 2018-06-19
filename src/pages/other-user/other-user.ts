@@ -58,10 +58,10 @@ export class OtherUserPage {
         //Set appropriate follow/unfollow icon
         var icon = '';
         if (contains(this.following, this.otherUser.id)) {
-            icon = "ion-android-person following";
+            icon = "Unfollow";
         }
         else {
-            icon = "ion-android-person-add follow";
+            icon = "Follow";
         }
         this.data.icon = icon;
 
@@ -173,7 +173,7 @@ export class OtherUserPage {
         });
         if (currentlyFollowing) {
             //Then unfollow
-            this.data.icon = 'ion-android-person-add follow';
+            this.data.icon = 'Follow';
 
             var index = this.following.indexOf(userId, 0);
             if (index > -1) {
@@ -198,7 +198,7 @@ export class OtherUserPage {
         }
         else {
             //Then follow the user
-            this.data.icon = 'ion-android-person following';
+            this.data.icon = 'Unfollow';
             if (!contains(this.following, userId)) {
                 this.following.push(userId);
             }
@@ -227,8 +227,25 @@ export class OtherUserPage {
             return false;
         }
 
+        function filter_array(test_array) {
+            var index = -1,
+                arr_length = test_array ? test_array.length : 0,
+                resIndex = -1,
+                result = [];
+
+            while (++index < arr_length) {
+                var value = test_array[index];
+
+                if (value) {
+                    result[++resIndex] = value;
+                }
+            }
+
+            return result;
+        }
+
         //Update the global list of following users
-        this.ProfileService.setFollowing(this.following);
+        this.ProfileService.setFollowing(filter_array(this.following));
     };
 
 
