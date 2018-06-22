@@ -3350,7 +3350,7 @@ body.grade-c {
   bottom: 0;
   left: 0;
   overflow: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   margin-top: -1px;
   padding-top: 1px;
   margin-bottom: -1px;
@@ -8767,6 +8767,15 @@ a.button {
 .toolbar-title {
     color: white;
 }
+
+.bar-button {
+    color: white;
+}
+
+ion-scroll { 
+	white-space: nowrap; 
+}
+
 /*******/
  
 .light, a.light {

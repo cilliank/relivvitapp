@@ -14,6 +14,13 @@
 	      <span class="text-xs">@{{data.username}}</span>
 	    </div>
   	</ion-title>
+  	
+  	<ion-buttons end>
+  		<button (click)="settings()" class="button">
+		      		<ion-icon name="settings"></ion-icon>
+		</button> 
+  	</ion-buttons>
+  	
   </ion-navbar>
 
 </ion-header>
@@ -40,10 +47,6 @@
         </div>
       </ion-slide>
     </ion-slide-box> -->
-
-    <div class="wrapper-sm">
-      <button class="button button-block button-small button-light icon-left ion-gear-a font-bold b-2x m-n b-light r-2x" (click)="settings()">Settings</button>
-    </div>
 
     <!-- <div class="button-bar bar-light m-b-md">
       <a class="button"><span class="balanced">5 Posts</span></a>
@@ -77,11 +80,13 @@
           			<p>This Clip is {{clip.shared}}</p>
           		</div>
           		<div class="col no-padder text-right">
-            		<i class="icon ion-android-share red balanced b b-light b-2x r-2x wrapper-xs padder" (click)="updateShare(clip.id)"></i>
+            		<!-- <i class="icon ion-android-share red balanced b b-light b-2x r-2x wrapper-xs padder" (click)="updateShare(clip.id)"></i> -->
+            		<ion-icon name="share-alt" (click)="updateShare(clip.id)"></ion-icon>
            	 		<div class="font-bold text-ellipsis text-sm">{{clip.shareAction}}</div>
           		</div>
           		<div class="col no-padder text-right">
-            		<i class="icon ion-android-delete red balanced b b-light b-2x r-2x wrapper-xs padder" (click)="deleteClip(clip)"></i>
+            		<!--  <i class="icon ion-android-delete red balanced b b-light b-2x r-2x wrapper-xs padder" (click)="deleteClip(clip)"></i> -->
+            		<ion-icon name="trash" (click)="deleteClip(clip)"></ion-icon>
           		</div>
         	</div>
   		</div>

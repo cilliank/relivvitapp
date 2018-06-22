@@ -4,4 +4,11 @@ page-feed {
     background-color: blue;
 }
 
+.html {
+  overflow-y: scroll;
+  overflow-x: scroll;
+  overflow: scroll;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y; }
+
 }

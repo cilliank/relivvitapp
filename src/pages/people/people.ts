@@ -81,10 +81,10 @@ export class PeoplePage {
                     //Determine icon to use based on whether loggedIn user is following current user or not
                     var icon = '';
                     if (contains(thisFollowing, user.id)) {
-                        icon = "ion-android-person following";
+                        icon = "Unfollow";
                     }
                     else {
-                        icon = "ion-android-person-add follow";
+                        icon = "Follow";
                     }
 
                     var user = new User(
@@ -114,20 +114,20 @@ export class PeoplePage {
 
         //Get the current user profile
         var profile = this.profileService.get();
-        
-        var data : any;
+
+        var data: any;
 
         this.profileService.getOtherUser(data, profile.sessionToken).subscribe(
-            
+
             response => {
-                
+
                 data = response;
 
                 this.profileService.setOtherUserLocal(data);
 
                 this.navCtrl.push(OtherUserPage);
 
-        });
+            });
 
     };
 
@@ -141,14 +141,24 @@ export class PeoplePage {
                 currentlyFollowing = true;
             }
         });
+
+        var thisFollowing = this.following;
+        var thisProfileService = this.profileService;
+        var thisProfile = this.profile;
+
         if (currentlyFollowing) {
             //Then unfollow
             this.data.users.forEach(function(user) {
                 if (user.id == userId) {
-                    user.icon = 'ion-android-person-add follow';
-                    this.following.pop(userId);
+                    user.icon = 'Follow';
+
+                    var index = thisFollowing.indexOf(userId, 0);
+                    if (index > -1) {
+                        thisFollowing.splice(index, 1);
+                    }
+
                     //Send REST unfollow request
-                    this.profileService.unfollow(userId, this.profile.sessionToken);
+                    thisProfileService.unfollow(userId, thisProfile.sessionToken);
                 }
             });
         }
@@ -156,16 +166,19 @@ export class PeoplePage {
             //Then follow the user
             this.data.users.forEach(function(user) {
                 if (user.id == userId) {
-                    user.icon = 'ion-android-person following';
-                    if (!contains(this.following, userId)) {
-                        this.following.push(userId);
+                    user.icon = 'Unfollow';
+                    if (!contains(thisFollowing, userId)) {
+                        thisFollowing.push(userId);
                     }
                     //Send REST unfollow request
-                    this.profileService.follow(userId, this.profile.sessionToken);
+                    thisProfileService.follow(userId, thisProfile.sessionToken);
                 }
             });
 
         }
+
+        this.following = thisFollowing;
+
         function contains(arr, element) {
             for (var i = 0; i < arr.length; i++) {
                 if (arr[i] === element) {

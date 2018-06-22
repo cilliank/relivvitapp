@@ -24,7 +24,6 @@
           <div class="col col-75 no-padder">
             <div class="font-bold text-ellipsis text-sm" (click)="goUser(user.username)">{{user.firstname}} {{user.lastName}}</div>
             <div class="font-bold text-ellipsis text-sm" (click)="goUser(user.username)">@{{user.username}}</div>
-            <div class="text-xs color-grey-500">Suggested for you</div>
           </div>
           <div class="col no-padder text-right">
             <i class="icon {{user.icon}} balanced b b-light b-2x r-2x wrapper-xs padder" (click)="followOrUnfollow(user.id,user.icon)"></i>

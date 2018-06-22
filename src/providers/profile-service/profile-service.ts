@@ -137,8 +137,10 @@ export class ProfileServiceProvider {
         	}
         	else{
         		if(this.otherUser != ""){
-            		this.otherUser.followers.push(this.profile.userId);
-            		this.otherUser.numFollowers++;
+        			if(this.otherUser.followers != null){
+            			this.otherUser.followers.push(this.profile.userId);
+            			this.otherUser.numFollowers++;
+            		}
         		}
 
         	}
@@ -169,8 +171,10 @@ export class ProfileServiceProvider {
         	}
         	else{
         		if(this.otherUser != ""){
-            		this.otherUser.followers.pop(this.profile.userId);
-            		this.otherUser.numFollowers--;
+        			if(this.otherUser.followers != null){
+            			this.otherUser.followers.pop(this.profile.userId);
+            			this.otherUser.numFollowers--;
+            		}
         		}
 
         	}
