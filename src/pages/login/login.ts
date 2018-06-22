@@ -86,7 +86,7 @@ export class LoginPage {
         }
         function createResetPopup(result, message, alertCtrl) {
             //Display error message
-            let alert = alertCtrl.createt({
+            let alert = alertCtrl.create({
                 title: 'Reset ' + result,
                 subTitle: message,
                 buttons: ['OK']
@@ -157,10 +157,9 @@ export class LoginPage {
                 loading.dismiss();
                 if (error.errors != null) {
                     //Get message, but don't have to use it. Can use generic message instead
-                    var errorMessage = error.errors[0].messages[0];
+                    //var errorMessage = error.errors[0].messages[0];
                     this.errorMessageLine1 = "Could not Login";
                     this.errorMessageLine2 = "Username or Password incorrect";
-
                 }
             });
     }

@@ -1,22 +1,20 @@
-<ion-content class="bg-black" scroll="false">
-    <div vertical layout fit>
-      <div class="bg-moving" relative flex>
-        <div class="welcome-overlay wrapper text-center" fit>
+<ion-content>
+    <div>
+      <div class="bg-moving">
+        <div class="welcome-overlay wrapper text-center">
           <div class="m-t-xl"></div>
           <img class="m-t-xxl m-b-md" src="assets/imgs/vine_logo.png" alt="" width="200">
-          <p class="text-lg color-grey-500">Watch it. Share it.<br>Relivvit</p>  
+          <p class="text-lg white-text">Watch it. Share it.<br>Relivvit</p>  
         </div>
       </div>
 
-      <div class="bg-grey-900" ng-init="activeBox = 0">
-        <div horizontal layout center around-justified class="color-white font-bold b-b b-dark">
-          <div class="wrapper b-2x b-white" (click)="goSignup()">
+        <div around-justified class="color-white font-bold b-b b-dark">
+          <div class="round-border" (click)="goSignup()">
             Sign Up
           </div>
-          <div class="wrapper inline b-2x b-white" (click)="goLogin()">
+          <div class="round-border" (click)="goLogin()">
             Log In
           </div>
         </div>
-      </div>
     </div>
   </ion-content>

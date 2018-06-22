@@ -8772,8 +8772,17 @@ a.button {
     color: white;
 }
 
-ion-scroll { 
-	white-space: nowrap; 
+.white-text {
+	color: white;
+}
+
+.center {
+	text-align:center;
+}
+
+.round-border {
+    padding: 20px;
+    text-align: center;
 }
 
 /*******/
@@ -9977,7 +9986,8 @@ html [segment], html segment {
 /* Source: http://joshbroton.com/quick-fix-sass-mixins-for-css-keyframe-animations/ */
 /* WELCOME */
 .bg-moving {
-  background: url("../img/bg_moving.png") center center transparent;
+  height: 570px;
+  background: url("/assets/imgs/bg_moving.png");
   background-size: cover;
   -webkit-animation: rolling 80s linear infinite;
   -moz-animation: rolling 80s linear infinite;
@@ -10003,7 +10013,9 @@ html [segment], html segment {
     background-position-y: 0px; } }
 
 .welcome-overlay {
-  background-color: rgba(0, 0, 0, 0.6); }
+  background-color: rgba(0, 0, 0, 0.6); 
+  height: 570px;
+ }
 
 /* end of WELCOME */
 .tab-nav.tabs {
