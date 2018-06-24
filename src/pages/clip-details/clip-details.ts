@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { ClipServiceProvider } from '../../providers/clip-service/clip-service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -20,13 +20,13 @@ import { TabsPage } from '../../pages/tabs/tabs';
 export class ClipDetailsPage {
 
     public data: any;
-    public clip : any;
+    public clip: any;
 
     public profile = this.profileService.get();
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public profileService: ProfileServiceProvider, public clipService: ClipServiceProvider,
-        public sanitizer: DomSanitizer) {
+        public sanitizer: DomSanitizer, public alertCtrl: AlertController) {
 
         this.clip = this.clipService.getClip();
 
@@ -43,13 +43,19 @@ export class ClipDetailsPage {
             'clipFile': trust,
             'clipName': '',
             'clipImage': 'http://138.201.90.98' + this.clip.image,
-            'share': ''
+            'share': true
         };
 
         console.log('UpdateClip scope params: ' + JSON.stringify(this.data));
     }
 
     public update() {
+        
+        if(this.data.clipName == null || this.data.clipName == ""){
+            createClipPopup('Error', 'You must give your clip a name', this.alertCtrl);
+            return;
+        }
+        
         //Data to submit to ClipService.update
         var clipParams = {
             'clipName': this.data.clipName,
@@ -96,6 +102,17 @@ export class ClipDetailsPage {
                 }
 
             })
+
+        function createClipPopup(result, message, alertCtrl) {
+            //Display error message
+            let alert = alertCtrl.create({
+                title: 'Create Clip ' + result,
+                subTitle: message,
+                buttons: ['OK']
+            });
+            alert.present();
+
+        }
 
     }
 

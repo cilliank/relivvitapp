@@ -3355,7 +3355,9 @@ body.grade-c {
   padding-top: 1px;
   margin-bottom: -1px;
   width: auto;
-  height: auto; }
+  height: auto; 
+  padding: 0px;
+  }
 
 .menu .scroll-content.scroll-content-false {
   z-index: 11; }
@@ -9986,7 +9988,7 @@ html [segment], html segment {
 /* Source: http://joshbroton.com/quick-fix-sass-mixins-for-css-keyframe-animations/ */
 /* WELCOME */
 .bg-moving {
-  height: 570px;
+  height: 530px;
   background: url("/assets/imgs/bg_moving.png");
   background-size: cover;
   -webkit-animation: rolling 80s linear infinite;
@@ -10014,7 +10016,7 @@ html [segment], html segment {
 
 .welcome-overlay {
   background-color: rgba(0, 0, 0, 0.6); 
-  height: 570px;
+  height: 530px;
  }
 
 /* end of WELCOME */

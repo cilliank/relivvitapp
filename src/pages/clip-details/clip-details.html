@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>clip-details</ion-title>
+    <ion-title>Clip Details</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -19,11 +19,17 @@
       <source [src]="data.clipFile" type="video/ogg">
     </video>
     
-    <ion-input type="text" placeholder="" [value]="data.clipName"></ion-input>
-    
-    <!--  <form class="list">
-      <ion-toggle toggle-class="toggle-positive" [(ngModel)]="data.share">Share to Timeline</ion-toggle>
-    </form> -->
+    <ion-list>
+  		<ion-item>
+    		<ion-label stacked>Give your clip a name</ion-label>
+    		<ion-input type="text" [(ngModel)]="data.clipName"></ion-input>
+  		</ion-item>
+  		<ion-item>
+  			<ion-label stacked>Share to Timeline</ion-label>
+  			<ion-toggle color="secondary" checked="true" [(ngModel)]="data.share"></ion-toggle>
+		</ion-item>
+	</ion-list>
+
     <button (click)="update()" style="font-weight:500;" class="button button-assertive button-block">Save Clip</button>
   
 </ion-content>

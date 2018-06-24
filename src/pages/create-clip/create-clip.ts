@@ -238,19 +238,17 @@ export class CreateClipPage {
                     //Update video in service, so next time button is pressed, it has updated current video
                     this.clipService.setVideo(video);
 
-                    var videoFile = "http://138.201.90.98" + this.video.file;
+                    var videoFile = "http://138.201.90.98" + data.file;
 
                     var trust = this.sanitizer.bypassSecurityTrustResourceUrl(videoFile);
 
                     this.data.videoToGet = trust;
                     
-                    if (this.video.offset != null) {
-                        var videoHTML = this.videoplayer.nativeElement;
-                        var sources = this.videoplayer.nativeElement.getElementsByTagName('source');
-                        sources[0].src = trust;
-                        sources[1].src = trust;
-                        videoHTML.load();
-                        this.videoplayer.nativeElement.currentTime = this.video.offset;
+                    if (data.offset != null) {
+                        this.videoplayer.nativeElement.getElementsByTagName('source')[0] = trust;
+                        this.videoplayer.nativeElement.getElementsByTagName('source')[1] = trust;
+                        this.videoplayer.nativeElement.load();  
+                        this.videoplayer.nativeElement.currentTime = data.offset;
                     }
                 }
                 else {

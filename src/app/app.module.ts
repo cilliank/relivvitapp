@@ -29,6 +29,7 @@ import { TimesPage } from '../pages/times/times';
 import { DatesPage } from '../pages/dates/dates';
 import { CreateClipPage } from '../pages/create-clip/create-clip';
 import { ClipDetailsPage } from '../pages/clip-details/clip-details';
+import { OtherUserFollowersPage } from '../pages/other-user-followers/other-user-followers';
 
 import { SignupPageModule } from '../pages/signup/signup.module';
 import { LoginPageModule } from '../pages/login/login.module';
@@ -49,6 +50,7 @@ import { TimesPageModule } from '../pages/times/times.module';
 import { DatesPageModule } from '../pages/dates/dates.module';
 import { CreateClipPageModule } from '../pages/create-clip/create-clip.module';
 import { ClipDetailsPageModule } from '../pages/clip-details/clip-details.module';
+import { OtherUserFollowersPageModule } from '../pages/other-user-followers/other-user-followers.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -86,7 +88,8 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     DatesPageModule,
     TimesPageModule,
     CreateClipPageModule,
-    ClipDetailsPageModule
+    ClipDetailsPageModule,
+    OtherUserFollowersPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -110,7 +113,8 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     DatesPage,
     TimesPage,
     CreateClipPage,
-    ClipDetailsPage
+    ClipDetailsPage,
+    OtherUserFollowersPage
   ],
   providers: [
     StatusBar,

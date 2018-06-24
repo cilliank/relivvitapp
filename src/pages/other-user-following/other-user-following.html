@@ -1,5 +1,5 @@
 <!--
-  Generated template for the FollowersPage page.
+  Generated template for the FollowingPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -9,9 +9,9 @@
   <ion-navbar>
     <ion-title>
 	    <div class="l-h-1x">
-	      Followers
+	      Following
 	      <br>
-	      <span class="text-xs">@{{data.username}}</span>
+	      <span class="text-xs">@{{user.username}}</span>
 	    </div>
   	</ion-title>
   </ion-navbar>
@@ -19,10 +19,10 @@
 </ion-header>
 
 
-  <ion-content>
+<ion-content>
 
     <div class="list">
-      <!--  <div class="item item-divider text-sm">Suggestions</div> -->
+      <!-- <div class="item item-divider text-sm">Suggestions</div> -->
       <div class="item item-avatar avatar-small b-none" *ngFor="let user of data.users">
         <img class="b b-2x b-white" src="{{user.image}}">
         <!-- <span class="badge badge-calm rounded"><i class="icon ion-social-twitter"></i></span> -->
@@ -32,9 +32,10 @@
             <div class="font-bold text-ellipsis text-sm" (click)="goUser(user.username)">@{{user.username}}</div>
           </div>
           <div class="col no-padder text-right">
-            <i class="icon {{user.icon}} balanced b b-light b-2x r-2x wrapper-xs padder" (click)="followOrUnfollow(user.id, user.icon)"></i>
+            <i class="icon {{user.icon}} balanced b b-light b-2x r-2x wrapper-xs padder" (click)="followOrUnfollow(user.id,user.icon)"></i>
           </div>
         </div>
       </div>
     </div>
   </ion-content>
+

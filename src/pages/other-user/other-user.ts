@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { ClipServiceProvider } from '../../providers/clip-service/clip-service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { OtherUserFollowersPage } from '../../pages/other-user-followers/other-user-followers';
 
 /**
  * Generated class for the OtherUserPage page.
@@ -159,6 +160,13 @@ export class OtherUserPage {
             });
 
         console.log("User: " + JSON.stringify(this.data));
+    }
+    
+    public goFollowers(user){
+        
+        this.ProfileService.setOtherUserLocal(user);
+        
+        this.navCtrl.push(OtherUserFollowersPage);
     }
 
     public followOrUnfollow(userId, icon) {

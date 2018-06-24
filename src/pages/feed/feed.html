@@ -43,14 +43,14 @@ to do this. <ion-buttons start> will add a button to the left side and <ion-butt
 	    </div>
 	  </div>
 		  <div class="item item-body no-padder b-none">
-		    <video controls class="video w-full" webkit-playsinline playsinline mute (play)="increasePlayCount('clip.id')" poster="{{clip.clipImage}}">
+		    <video controls class="video w-full" playsinline="true" mute (play)="increasePlayCount('clip.id')" poster="{{clip.clipImage}}">
 		      <source [src]="clip.file" type="video/mp4">
 		      <source [src]="clip.file" type="video/ogg">
 		    </video>
 		    
 		    <div class="wrapper-sm">
 		      <div class="caption no-padder m-b-sm">
-		        {{clip.name}} <a href="" class="hashtag">#relivvit</a>
+		        {{clip.name}} <a href="" class="hashtag">#relivvit1</a>
 		      </div>
 		
 		      <div center class="actions row no-padder row-center color-grey-500">
