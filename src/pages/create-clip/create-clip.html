@@ -15,9 +15,7 @@
 
 <ion-content>
 	<div class="item item-body no-padder b-none" >
-    <video id="createVideo" controls class="video w-full" autoplay playsinline mute #videoPlayer>
-      <source [src]="data.videoToGet" type="video/mp4">
-      <source [src]="data.videoToGet" type="video/ogg">
+    <video [src]="data.videoToGet" id="createVideo" controls class="video w-full" autoplay playsinline mute #videoPlayer>
     </video>
 </div>
 <div class="button-bar">

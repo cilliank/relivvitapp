@@ -21,14 +21,14 @@ import { ClipDetailsPage } from '../../pages/clip-details/clip-details';
 
 
 export class CreateClipPage {
-    @ViewChild('videoPlayer') videoplayer: any;  
+    @ViewChild('videoPlayer') videoplayer: any;
 
     public times: any;
     public data: any;
     public clipStart: any;
     public currTime: any;
     public submitting: any;
-    public video : any;
+    public video: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public profileService: ProfileServiceProvider, public clipService: ClipServiceProvider,
@@ -77,7 +77,7 @@ export class CreateClipPage {
         this.clipStart = '0';
         this.currTime = '0';
     }
-    
+
     public switchCamera(camera) {
 
         this.video = this.clipService.getVideo();
@@ -100,19 +100,16 @@ export class CreateClipPage {
 
                 data = response;
 
-                var videoFile = "http://www.138.201.90.98" + this.video.file;
+                var videoFile = "http://138.201.90.98" + data.file;
 
                 var trust = this.sanitizer.bypassSecurityTrustResourceUrl(videoFile);
 
                 this.data.videoToGet = trust;
 
-                if (this.video.offset != null) {
-                    var videoHTML = this.videoplayer.nativeElement;
-                    var sources = videoHTML.getElementsByTagName('source');
-                    sources[0].src = trust;
-                    sources[1].src = trust;
-                    videoHTML.load();
-                    this.videoplayer.nativeElement.currentTime = this.video.offset;
+                if (data.offset != null) {
+                    this.videoplayer.nativeElement.setAttribute('src', trust);
+                    this.videoplayer.nativeElement.load();
+                    this.videoplayer.nativeElement.currentTime = data.offset;
                 }
 
             });
@@ -227,44 +224,44 @@ export class CreateClipPage {
                 'addTime': skip
             };
 
-            var data : any;
-            
+            var data: any;
+
             this.clipService.switch(switchParams).subscribe(
-            response => {
-                
-                data = response;
+                response => {
 
-                if (video != null) {
-                    //Update video in service, so next time button is pressed, it has updated current video
-                    this.clipService.setVideo(video);
+                    data = response;
 
-                    var videoFile = "http://138.201.90.98" + data.file;
+                    if (data != null) {
+                        //Update video in service, so next time button is pressed, it has updated current video
+                        this.clipService.setVideo(data);
+                        this.video = data;
 
-                    var trust = this.sanitizer.bypassSecurityTrustResourceUrl(videoFile);
+                        var videoFile = "http://138.201.90.98" + data.file;
 
-                    this.data.videoToGet = trust;
-                    
-                    if (data.offset != null) {
-                        this.videoplayer.nativeElement.getElementsByTagName('source')[0] = trust;
-                        this.videoplayer.nativeElement.getElementsByTagName('source')[1] = trust;
-                        this.videoplayer.nativeElement.load();  
-                        this.videoplayer.nativeElement.currentTime = data.offset;
-                    }
-                }
-                else {
-                    //The current video must be the earliest/latest in the list, so just skip back to the start of it
-                    var videoHTML = this.videoplayer.nativeElement;
-                    if (skip < 0) {
-                        this.videoplayer.nativeElement.currentTime = 0;
+                        var trust = this.sanitizer.bypassSecurityTrustResourceUrl(videoFile);
+
+                        this.data.videoToGet = trust;
+
+                        if (data.offset != null) {
+                            this.videoplayer.nativeElement.setAttribute('src', trust);
+                            this.videoplayer.nativeElement.load();
+                            this.videoplayer.nativeElement.currentTime = data.offset;
+                        }
                     }
                     else {
-                        this.videoplayer.nativeElement.currentTime = videoHTML.duration < 1;
+                        //The current video must be the earliest/latest in the list, so just skip back to the start of it
+                        var videoHTML = this.videoplayer.nativeElement;
+                        if (skip < 0) {
+                            this.videoplayer.nativeElement.currentTime = 0;
+                        }
+                        else {
+                            this.videoplayer.nativeElement.currentTime = videoHTML.duration < 1;
+                        }
+
                     }
 
-                }
 
-
-            });
+                });
         }
 
 

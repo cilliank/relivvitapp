@@ -146,12 +146,28 @@ export class FeedPage {
   
 	public share(type,file,image,clipName){
 		if(type == 'f'){
-			this.socialSharing.shareViaFacebook(clipName, file, file).then(() => {
-  				// Success!
-  				console.log('Sharing to Facebook: ' + clipName);
-			}).catch(() => {
-  				// Error!
-			});	
+				console.log("Download to camera roll. " + file);
+			
+			 	//var videoPath = cordova.file.applicationStorageDirectory+"/tmp/"+file;
+			 	
+			 	const fileTransfer: FileTransferObject = this.transfer.create();
+          		fileTransfer.download(file, this.file.applicationStorageDirectory + file).then((entry) => {
+          			console.log("entry: " + entry);
+          		});
+	
+				//console.log("Local video path is: " + videoPath);
+	
+	         /*if(window.device.platform=="iOS"){
+	            this.socialsharing.shareVia(
+	                'com.apple.social.facebook', 'Text', null, null, videoPath, 
+	                	function(){
+	                		console.log('share ok')}, 
+	                			function(msg) {
+	                				console.log('error: ' + msg)}
+	             );
+	      	} else {
+	              window.plugins.socialsharing.shareViaFacebook('Text', videoPath, function() {console.log('share ok')}, function(errormsg){});
+	      	}*/
 			
 		}
 		if(type == 't'){
