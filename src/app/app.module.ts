@@ -7,6 +7,7 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { Device } from '@ionic-native/device';
 import { MyApp } from './app.component';
 
 import { SignupPage } from '../pages/signup/signup';
@@ -129,7 +130,8 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     SocialSharing,
     FileTransfer,
     FileTransferObject,
-    File
+    File,
+    Device
   ]
 })
 export class AppModule {}
