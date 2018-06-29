@@ -13,6 +13,9 @@ export class ClipServiceProvider {
     clip = '';
     video = '';
     api_base = 'http://138.201.90.98/api/rest/clips/';
+    
+    newClips = [];
+    newProfileClips = [];
 
 
 		constructor(public httpClient:HttpClient) {
@@ -31,6 +34,28 @@ export class ClipServiceProvider {
         getClip(){
         	return this.clip;      
         }
+        
+        getNewClips(){
+        	return this.newClips;
+        }
+        
+        clearNewClips(){
+        	this.newClips = [];
+        }
+        
+        addNewClip(clip){
+        	this.newClips.push(clip);
+        	this.newProfileClips.push(clip);
+        }
+        
+        getNewProfileClips(){
+        	return this.newProfileClips;
+        }
+        
+        clearNewProfileClips(){
+        	this.newProfileClips = [];
+        }
+        
     	getShared(sessionToken){
     		
     		//http://www.relivvit.com/api/rest/clips/shared?order-by=created

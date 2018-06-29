@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-	<video controls class="video w-full" playsinline mute poster="{{data.clipImage}}">
+	<video controls class="video w-full" playsinline autoplay mute poster="{{data.clipImage}}">
       <source [src]="data.clipFile" type="video/mp4">
       <source [src]="data.clipFile" type="video/ogg">
     </video>

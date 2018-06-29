@@ -4,6 +4,7 @@ import { ProfileServiceProvider } from '../../providers/profile-service/profile-
 import { ClipServiceProvider } from '../../providers/clip-service/clip-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TabsPage } from '../../pages/tabs/tabs';
+import { FeedPage } from '../../pages/feed/feed';
 
 /**
  * Generated class for the ClipDetailsPage page.
@@ -84,8 +85,12 @@ export class ClipDetailsPage {
                     this.clipService.share(clipParams, this.profile.sessionToken).subscribe(
                         data => {
                             console.log(data);
+                            
+                            this.clipService.addNewClip(data);
 
-                            this.navCtrl.push(TabsPage);
+                            createClipPopup('Success', 'Your clip has been created and is now visible on your Timeline page.', this.alertCtrl);
+                            
+                            this.navCtrl.pop();
                         })
                 }
                 else {
@@ -93,10 +98,14 @@ export class ClipDetailsPage {
                     this.clipService.unshare(clipParams, this.profile.sessionToken).subscribe(
                         data => {
                             console.log(data);
+                            
+                            this.clipService.addNewClip(data);
+                            
+                            createClipPopup('Success', 'Your clip has been created but is still private. You can see it on your profile page.', this.alertCtrl);
 
                             //Just go to timeline page without sharing 
                             //TODO Perhaps go back to Create page for same video?
-                            this.navCtrl.push(TabsPage);
+                            this.navCtrl.pop();
                         })
 
                 }

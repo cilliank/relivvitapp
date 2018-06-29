@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
@@ -38,6 +38,71 @@ export class FeedPage {
     //Get the current user profile
     profile = this.profileService.get();
 
+
+    ionViewWillEnter() {
+        
+        var protocol = "http://";
+        var website = "138.201.90.98";
+
+        var newClips = this.clipService.getNewClips();
+
+        if (newClips == null || newClips.length == 0) {
+            console.log("No new clips have been created. Grand so.");
+        } else {
+            console.log("The following new clips have been created and should be pushed on to the FeedClips list (unshift)" + newClips);
+
+            var thisFeedClips = this.data.feedClips;
+            var thisSanitizer = this.sanitizer;
+
+            newClips.forEach(function(newClip) {
+                console.log(newClip);
+                
+                var feedClip = new FeedClip(
+                        newClip.id,
+                        newClip.name,
+                        newClip.views,
+                        newClip.likes,
+                        newClip.file,
+                        newClip.image,
+                        newClip.user.firstname,
+                        newClip.user.lastName,
+                        newClip.user.username,
+                        newClip.user.image,
+                        thisSanitizer
+                    );
+                
+                thisFeedClips.unshift(feedClip);
+            });
+
+            this.data.feedClips = thisFeedClips;
+
+            /*this.zone.run(() => {
+                console.log('force update the screen');
+            });*/
+            
+            //Clear the new clips so that we don't keep adding them every time the user navigates to this page. Just need to add them once
+            this.clipService.clearNewClips();
+        }
+
+        function FeedClip(id, name, views, likes, file, clipImage, firstname, lastName, username, image, sanitizer) {
+            this.id = id;
+            this.name = name;
+            this.views = views;
+            this.likes = likes;
+
+            var clipFile = protocol + website + file;
+            //var trustFile = $sce.trustAsResourceUrl(clipFile);
+            var trustFile = sanitizer.bypassSecurityTrustResourceUrl(clipFile);
+            this.clipImage = protocol + website + clipImage;
+
+            this.file = trustFile;
+            this.firstname = firstname;
+            this.lastName = lastName;
+            this.username = username;
+            this.image = protocol + website + image;
+        };
+    }
+
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public profileService: ProfileServiceProvider, public clipService: ClipServiceProvider,
         public sanitizer: DomSanitizer,
@@ -46,9 +111,8 @@ export class FeedPage {
         private transfer: FileTransfer,
         private file: File,
         private device: Device,
-        public loadingCtrl: LoadingController) {
-
-
+        public loadingCtrl: LoadingController,
+        public zone: NgZone) {
 
         var protocol = "http://";
         var website = "138.201.90.98";
@@ -148,12 +212,12 @@ export class FeedPage {
 
     public share(type, file, image, clipName) {
         if (type == 'f') {
-            this.socialSharing.shareViaFacebook(clipName, '', file).then(() => {
+            /*this.socialSharing.shareViaFacebook(clipName, '', file).then(() => {
                 // Success!
                 console.log('Sharing to Facebook: ' + clipName);
             }).catch(() => {
                 // Error!
-            });
+            });*/
         }
         if (type == 't') {
             this.socialSharing.shareViaTwitter(clipName, file, file).then(() => {
@@ -203,7 +267,7 @@ export class FeedPage {
     };
 
     public saveToCameraRoll(file) {
-        console.log("Download to camera roll. " + file);
+        /*console.log("Download to camera roll. " + file);
 
         let loading = this.loadingCtrl.create({
             content: 'Saving Video...'

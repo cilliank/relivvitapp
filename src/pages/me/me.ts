@@ -27,6 +27,85 @@ export class MePage {
     //Get the current user profile
     profile = this.ProfileService.get();
 
+    ionViewWillEnter() {
+
+        var protocol = "http://";
+        var website = "138.201.90.98";
+
+        var newClips = this.ClipService.getNewProfileClips();
+
+        if (newClips == null || newClips.length == 0) {
+            console.log("No new clips have been created. Grand so.");
+        } else {
+            console.log("The following new clips have been created and should be pushed on to the FeedClips list (unshift)" + newClips);
+
+            var thisFeedClips = this.data.feedClips;
+            var thisSanitizer = this.sanitizer;
+
+            newClips.forEach(function(newClip) {
+                console.log(newClip);
+                
+                var shared2 = '';
+                    var shareAction = '';
+
+                    if (newClip.shared) {
+                        shared2 = 'shared';
+                        shareAction = 'Unshare';
+                    }
+                    else {
+                        shared2 = 'unshared';
+                        shareAction = 'Share';
+                    };
+
+                var feedClip = new OwnClip(
+                    newClip.id,
+                    newClip.name,
+                    newClip.views,
+                    newClip.likes,
+                    newClip.file,
+                    newClip.image,
+                    newClip.user.firstname,
+                    newClip.user.lastName,
+                    newClip.user.username,
+                    newClip.user.image,
+                    shared2,
+                    shareAction,
+                    thisSanitizer
+                );
+
+                thisFeedClips.unshift(feedClip);
+            });
+
+            this.data.feedClips = thisFeedClips;
+
+            /*this.zone.run(() => {
+                console.log('force update the screen');
+            });*/
+
+            //Clear the new profile clips so that we don't keep adding them every time the user navigates to this page. Just need to add them once
+            this.ClipService.clearNewProfileClips();
+        }
+
+        function OwnClip(id, name, views, likes, file, clipImage, firstname, lastName, username, image, shared, shareAction, sanitizer) {
+            this.id = id;
+            this.name = name;
+            this.views = views;
+            this.likes = likes;
+
+            var clipFile = protocol + website + file;
+            var trustFile = sanitizer.bypassSecurityTrustResourceUrl(clipFile);
+            this.clipImage = protocol + website + clipImage;
+
+            this.file = trustFile;
+            this.firstname = firstname;
+            this.lastName = lastName;
+            this.username = username;
+            this.image = protocol + website + image;
+            this.shared = shared;
+            this.shareAction = shareAction;
+        };
+    }
+
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public ProfileService: ProfileServiceProvider,
         public ClipService: ClipServiceProvider,
@@ -85,13 +164,13 @@ export class MePage {
             'userId': this.profile.userId
         }
 
-        var data : any;
-        
+        var data: any;
+
         //Get the most recently created videos for user which this user follows
         ClipService.getUsersOwnClips(clipData).subscribe(
 
             response => {
-                
+
                 data = response;
 
                 console.log("Feed clips: " + JSON.stringify(data));
@@ -157,7 +236,7 @@ export class MePage {
     public goFollowing() {
         this.navCtrl.push(FollowingPage);
     };
-    
+
     public settings() {
         this.navCtrl.push(SettingsPage);
     };
@@ -211,7 +290,7 @@ export class MePage {
         }
 
         var thisShare = false;
-        
+
         //Determine the current shared state of the clip, then perform the opposite
         this.data.feedClips.forEach(function(clip) {
             if (clip.id == clipParams.clipId) {
@@ -228,15 +307,15 @@ export class MePage {
 
         if (this.data.share === true) {
             //Share the clip
-            
-            var data : any;
-            
+
+            var data: any;
+
             this.ClipService.share(clipParams, this.profile.sessionToken).subscribe(
 
                 response => {
-                    
+
                     data = response;
-                    
+
                     console.log(data);
 
                     //$state.go('home.me', params, { reload: true});
@@ -252,15 +331,15 @@ export class MePage {
         }
         else {
             //Unshare the clip
-            
-            var data : any;
-            
+
+            var data: any;
+
             this.ClipService.unshare(clipParams, this.profile.sessionToken).subscribe(
 
                 response => {
-                    
+
                     response = data;
-                    
+
                     console.log(data);
 
                     //Just go to timeline page without sharing 
@@ -283,7 +362,7 @@ export class MePage {
     public uploadProfilePic() {
         console.log('Uploading profile pic...');
 
-        
+
     }
 
     ionViewDidLoad() {

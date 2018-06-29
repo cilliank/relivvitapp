@@ -64,7 +64,7 @@ export class SettingsPage {
         var update = false;
 
         var currentEmail = this.profile.email;
-        var newEmail = document.getElementById("email").innerText;
+        var newEmail = this.data.email;
         if (currentEmail != newEmail) {
             console.log('Updating email: ' + newEmail);
 
@@ -82,7 +82,7 @@ export class SettingsPage {
         }
 
         var currentBio = this.profile.bio;
-        var newBio = document.getElementById("bio").innerText;
+        var newBio = this.data.bio;
         if (currentBio != newBio) {
             console.log('Updating bio: ' + newBio);
 
@@ -99,7 +99,7 @@ export class SettingsPage {
         }
 
         var currentLocation = this.profile.location;
-        var newLocation = document.getElementById("location").innerText;
+        var newLocation = this.data.location;
         if (currentLocation != newLocation) {
             console.log('Updating location: ' + newLocation);
 

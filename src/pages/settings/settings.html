@@ -27,84 +27,33 @@
 	</span>
 </div>
 
-<div class="list m-n text-center">
-	<div class="item font-bold">{{data.firstname}} {{data.lastName}}
-	</div>
-	<div id="email" class="item font-bold" contenteditable="true">
-		{{data.email}}</div>
-	<div id="bio" class="item text-sm" contenteditable="true">
-		{{data.bio}}</div>
-	<div id="location" class="item text-sm" contenteditable="true">
-		{{data.location}}</div>
-</div>
+<div class="item font-bold">{{data.firstname}} {{data.lastName}}</div>
+
+<ion-list>
+  		<ion-item>
+    		<ion-label stacked>Email Address</ion-label>
+    		<ion-input type="email" [(ngModel)]="data.email"></ion-input>
+  		</ion-item>
+  		<ion-item>
+    		<ion-label stacked>Tell us a little about yourself</ion-label>
+    		<ion-input type="text" [(ngModel)]="data.bio"></ion-input>
+  		</ion-item>
+  		<ion-item>
+    		<ion-label stacked>Where do you live?</ion-label>
+    		<ion-input type="text" [(ngModel)]="data.location"></ion-input>
+  		</ion-item>
+</ion-list>
 
 <div class="list">
-<!-- 	<div class="item item-divider text-sm">Account</div> -->
-	<div class="list">
-		<!-- <a class="item" href="#">
-          Email
-          <span class="item-note">
-            {{data.email}}
-          </span>
-        </a> -->
-		<!-- <a class="item" href="#">
-          Twitter
-          <span class="item-note">
-            @mrhieu
-          </span>
-        </a> -->
-		<!--  <a class="item" href="#">
-          Phone
-          <span class="item-note">
-            {{data.phoneNumber}}
-          </span>
-        </a> -->
 
-		<!-- <a class="item" href="#">
-          Change password
-          <span class="item-note">
-            <i class="icon ion-chevron-right" ui-sref="home.settings.password"></i>
-          </span>
-        </a> -->
+	<div class="list">
 
 		<div class="wrapper-sm">
 			<button class="button button-block button-assertive font-bold"
 				(click)="changePassword()">Change Password</button>
 		</div>
-
-		<!--  <a class="item" href="#">
-          Notifications
-          <span class="item-note">
-            <i class="icon ion-chevron-right"></i>
-          </span>
-        </a> -->
-
-		<!--  <a class="item" href="#">
-          Privacy
-          <span class="item-note">
-            <i class="icon ion-chevron-right"></i>
-          </span>
-        </a> -->
 	</div>
 </div>
-
-<!--  <div class="list">
-      <div class="item item-divider text-sm">Social Networks</div>
-      <div class="list">
-        <a class="item" href="#">
-          Facebook
-          <span class="item-note">
-            Not connected
-          </span>
-        </a>
-        <a class="item" href="#">
-          Tumblr
-          <span class="item-note">
-            Not connected
-          </span>
-        </a>
-      </div>
-    </div> -->
 
 <div class="text-center item font-bold">
 	Got a Question For Us? <br /> <a
