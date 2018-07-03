@@ -44,18 +44,18 @@ export class MePage {
 
             newClips.forEach(function(newClip) {
                 console.log(newClip);
-                
-                var shared2 = '';
-                    var shareAction = '';
 
-                    if (newClip.shared) {
-                        shared2 = 'shared';
-                        shareAction = 'Unshare';
-                    }
-                    else {
-                        shared2 = 'unshared';
-                        shareAction = 'Share';
-                    };
+                var shared2 = false;
+                var shareAction = '';
+
+                if (newClip.shared) {
+                    shared2 = true;
+                    shareAction = 'Unshare';
+                }
+                else {
+                    shared2 = false;
+                    shareAction = 'Share';
+                };
 
                 var feedClip = new OwnClip(
                     newClip.id,
@@ -189,15 +189,15 @@ export class MePage {
                 data.forEach(function(clip) {
                     console.log(clip);
 
-                    var shared2 = '';
+                    var shared2 = false;
                     var shareAction = '';
 
                     if (clip.shared) {
-                        shared2 = 'shared';
+                        shared2 = true;
                         shareAction = 'Unshare';
                     }
                     else {
-                        shared2 = 'unshared';
+                        shared2 = false;
                         shareAction = 'Share';
                     };
 
@@ -260,8 +260,13 @@ export class MePage {
                                 console.log("Clip: " + data + " deleted");
 
                                 //Remove the clip from the scope
-                                this.data.feedClips.pop(clip);
-                                //$state.reload();
+                                var index = findWithAttr(this.data.feedClips, 'id', clip.id);
+                                if (index > -1) {
+                                    this.data.feedClips.splice(index, 1);
+                                }
+
+                                //Add to removedClips so that it will be removed from Timeline page next time that is loaded
+                                this.ClipService.addRemovedClip(clip);
                             })
                     }
                 },
@@ -275,9 +280,21 @@ export class MePage {
             ]
         });
         confirm.present();
+
+        function findWithAttr(array, attr, value) {
+
+            for (var i = 0; i < array.length; i += 1) {
+                if (array[i][attr] === value) {
+                    return i;
+                }
+            }
+            return -1;
+        }
     }
 
     public updateShare(data) {
+
+
         //Data to submit to ClipService.update
         var clipParams = {
             'clipId': data
@@ -291,14 +308,14 @@ export class MePage {
 
         var thisShare = false;
 
-        //Determine the current shared state of the clip, then perform the opposite
+        //Determine the current shared state of the clip
         this.data.feedClips.forEach(function(clip) {
             if (clip.id == clipParams.clipId) {
-                if (clip.shared == 'shared') {
-                    thisShare = false;
+                if (clip.shared == true) {
+                    thisShare = true;
                 }
                 else {
-                    thisShare = true;
+                    thisShare = false;
                 }
             }
         })
@@ -323,7 +340,7 @@ export class MePage {
                     //Determine the current shared state of the clip, then perform the opposite
                     this.data.feedClips.forEach(function(clip) {
                         if (clip.id == clipParams.clipId) {
-                            clip.shared = 'shared';
+                            clip.shared = true;
                             clip.shareAction = 'Unshare';
                         }
                     })
@@ -349,13 +366,15 @@ export class MePage {
                     //Determine the current shared state of the clip, then perform the opposite
                     this.data.feedClips.forEach(function(clip) {
                         if (clip.id == clipParams.clipId) {
-                            clip.shared = 'unshared';
+                            clip.shared = false;
                             clip.shareAction = 'Share';
                         }
                     })
                 })
 
         }
+
+
 
     }
 

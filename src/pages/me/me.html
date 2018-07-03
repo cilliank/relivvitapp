@@ -75,18 +75,22 @@
             		<div class="font-bold text-ellipsis text-sm">{{clip.name}}</div>
             		<div class="text-xs color-grey-500">Views {{clip.views}}</div>
           		</div>
-          		<div class="font-bold text-ellipsis color-red">
+          		<!--  <div class="font-bold text-ellipsis color-red">
           			<p></p>
           			<p>This Clip is {{clip.shared}}</p>
           		</div>
           		<div class="col no-padder text-right">
-            		<!-- <i class="icon ion-android-share red balanced b b-light b-2x r-2x wrapper-xs padder" (click)="updateShare(clip.id)"></i> -->
             		<ion-icon name="share-alt" (click)="updateShare(clip.id)"></ion-icon>
            	 		<div class="font-bold text-ellipsis text-sm">{{clip.shareAction}}</div>
-          		</div>
+          		</div> -->
+
+	  						<ion-label class="shared-toggle-label" >Shared</ion-label>
+	  						<ion-toggle class="shared-toggle" color="secondary" [(ngModel)]="clip.shared" (ngModelChange)="updateShare(clip.id)"></ion-toggle>
+
+
           		<div class="col no-padder text-right">
             		<!--  <i class="icon ion-android-delete red balanced b b-light b-2x r-2x wrapper-xs padder" (click)="deleteClip(clip)"></i> -->
-            		<ion-icon name="trash" (click)="deleteClip(clip)"></ion-icon>
+            		<ion-icon class="me-trash" name="trash" (click)="deleteClip(clip)"></ion-icon>
           		</div>
         	</div>
   		</div>

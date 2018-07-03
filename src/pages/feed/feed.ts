@@ -40,11 +40,58 @@ export class FeedPage {
 
 
     ionViewWillEnter() {
-        
+
         var protocol = "http://";
         var website = "138.201.90.98";
 
         var newClips = this.clipService.getNewClips();
+        
+        
+        var data: any;
+
+        this.clipService.getShared(this.profile.sessionToken).subscribe(
+
+            response => {
+
+                data = response;
+
+                console.log("Feed clips: " + JSON.stringify(data));
+
+                this.data.numClips = data.length;
+
+                if (this.data.numClips == 0) {
+                    this.data.notFollowingAnyoneMessage1 = "You are not following anyone.";
+                    this.data.notFollowingAnyoneMessage2 = "Get following!";
+                }
+
+                console.log("Number of Feed Clips: " + this.data.numClips);
+
+                var thisFeedClips = [];
+                var thisSanitizer = this.sanitizer;
+
+                //Create array of clip ids so that the html can loop through it (posts.html)
+                data.forEach(function(clip) {
+                    console.log(clip);
+
+                    var feedClip = new FeedClip(
+                        clip.id,
+                        clip.name,
+                        clip.views,
+                        clip.likes,
+                        clip.file,
+                        clip.image,
+                        clip.user.firstname,
+                        clip.user.lastName,
+                        clip.user.username,
+                        clip.user.image,
+                        thisSanitizer
+                    );
+
+                    thisFeedClips.push(feedClip);
+                });
+                this.data.feedClips = thisFeedClips;
+
+            });
 
         if (newClips == null || newClips.length == 0) {
             console.log("No new clips have been created. Grand so.");
@@ -56,21 +103,21 @@ export class FeedPage {
 
             newClips.forEach(function(newClip) {
                 console.log(newClip);
-                
+
                 var feedClip = new FeedClip(
-                        newClip.id,
-                        newClip.name,
-                        newClip.views,
-                        newClip.likes,
-                        newClip.file,
-                        newClip.image,
-                        newClip.user.firstname,
-                        newClip.user.lastName,
-                        newClip.user.username,
-                        newClip.user.image,
-                        thisSanitizer
-                    );
-                
+                    newClip.id,
+                    newClip.name,
+                    newClip.views,
+                    newClip.likes,
+                    newClip.file,
+                    newClip.image,
+                    newClip.user.firstname,
+                    newClip.user.lastName,
+                    newClip.user.username,
+                    newClip.user.image,
+                    thisSanitizer
+                );
+
                 thisFeedClips.unshift(feedClip);
             });
 
@@ -79,7 +126,7 @@ export class FeedPage {
             /*this.zone.run(() => {
                 console.log('force update the screen');
             });*/
-            
+
             //Clear the new clips so that we don't keep adding them every time the user navigates to this page. Just need to add them once
             this.clipService.clearNewClips();
         }

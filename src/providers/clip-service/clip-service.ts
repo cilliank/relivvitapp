@@ -16,7 +16,7 @@ export class ClipServiceProvider {
     
     newClips = [];
     newProfileClips = [];
-
+	removedClips = [];
 
 		constructor(public httpClient:HttpClient) {
 		    
@@ -54,6 +54,18 @@ export class ClipServiceProvider {
         
         clearNewProfileClips(){
         	this.newProfileClips = [];
+        }
+        
+        getRemovedClips(){
+        	return this.removedClips;
+        }
+        
+        clearRemovedClips(){
+        	this.removedClips = [];
+        }
+        
+        addRemovedClip(clip){
+        	this.removedClips.push(clip);
         }
         
     	getShared(sessionToken){
