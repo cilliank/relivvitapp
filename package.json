@@ -1,5 +1,5 @@
 {
-  "name": "myApp",
+  "name": "Relivvit",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
@@ -70,8 +70,8 @@
       "cordova-plugin-file": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

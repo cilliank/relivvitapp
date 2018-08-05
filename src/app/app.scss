@@ -8763,6 +8763,17 @@ a.button {
  /*
  Custom - added by CK
  */
+ follow-buttons{
+ 	float:right;
+	display: inline-block;
+ }
+.follow-button {
+	color:white;
+	background-color: red;
+	font-weight: bold;
+	float:right;
+	display: inline-block;
+}
 .toolbar-background {
     background-color: black;
 }
@@ -9505,7 +9516,8 @@ html [segment], html segment {
   display: block;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; }
+  text-overflow: ellipsis; 
+  }
 
 .text-u-c {
   text-transform: uppercase; }

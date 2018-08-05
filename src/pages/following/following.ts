@@ -80,7 +80,7 @@ export class FollowingPage {
                     }
 
                     //Already following all of them
-                    var icon = 'ion-android-person following';
+                    var icon = 'Unfollow';
 
                     var user = new User(
                         user.id,
@@ -129,14 +129,24 @@ export class FollowingPage {
                 currentlyFollowing = true;
             }
         });
+        
+        var thisFollowing = this.following;
+        var thisProfileService = this.profileService;
+        var thisProfile = this.profile;
+
         if (currentlyFollowing) {
             //Then unfollow
             this.data.users.forEach(function(user) {
                 if (user.id == userId) {
-                    user.icon = 'ion-android-person-add follow';
-                    this.following.pop(userId);
+                    user.icon = 'Follow';
+
+                    var index = thisFollowing.indexOf(userId, 0);
+                    if (index > -1) {
+                        thisFollowing.splice(index, 1);
+                    }
+
                     //Send REST unfollow request
-                    this.profileService.unfollow(userId, this.profile.sessionToken);
+                    thisProfileService.unfollow(userId, thisProfile.sessionToken);
                 }
             });
         }
@@ -144,16 +154,18 @@ export class FollowingPage {
             //Then follow the user
             this.data.users.forEach(function(user) {
                 if (user.id == userId) {
-                    user.icon = 'ion-android-person following';
-                    if (!contains(this.following, userId)) {
-                        this.following.push(userId);
+                    user.icon = 'Unfollow';
+                    if (!contains(thisFollowing, userId)) {
+                        thisFollowing.push(userId);
                     }
-                    //Send REST follow request
-                    this.profileService.follow(userId, this.profile.sessionToken);
+                    //Send REST unfollow request
+                    thisProfileService.follow(userId, thisProfile.sessionToken);
                 }
             });
 
         }
+
+        this.following = thisFollowing;
 
 
         function contains(arr, element) {
