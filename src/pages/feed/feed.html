@@ -26,6 +26,15 @@ to do this. <ion-buttons start> will add a button to the left side and <ion-butt
 
 
   <ion-content>
+  
+	  <ion-refresher (ionRefresh)="doRefresh($event)">
+	    <ion-refresher-content
+		      pullingIcon="arrow-dropdown"
+		      pullingText="Pull to refresh"
+		      refreshingSpinner="circles"
+		      refreshingText="Refreshing...">
+    	</ion-refresher-content>
+	  </ion-refresher>
     
 	<div class="list vine-feeds" *ngFor="let clip of data.feedClips">
 	  <div class="item item-avatar avatar-small">

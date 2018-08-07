@@ -45,8 +45,8 @@ export class FeedPage {
         var website = "138.201.90.98";
 
         var newClips = this.clipService.getNewClips();
-        
-        
+
+
         var data: any;
 
         this.clipService.getShared(this.profile.sessionToken).subscribe(
@@ -251,6 +251,79 @@ export class FeedPage {
 
             });
 
+    }
+
+    doRefresh(refresher) {
+        var protocol = "http://";
+        var website = "138.201.90.98";
+
+        var sessionToken = this.data.sessionToken;
+
+        //Get the most recently created videos for user which this user follows
+
+        var data: any;
+        var thisSanitizer = this.sanitizer;
+
+        this.clipService.getShared(sessionToken).subscribe(
+
+            response => {
+
+                data = response;
+
+                console.log("Feed clips: " + JSON.stringify(data));
+
+                this.data.numClips = data.length;
+
+                if (this.data.numClips == 0) {
+                    this.data.notFollowingAnyoneMessage1 = "You are not following anyone.";
+                    this.data.notFollowingAnyoneMessage2 = "Get following!";
+                }
+
+                console.log("Number of Feed Clips: " + this.data.numClips);
+
+                var thisFeedClips = [];
+
+                //Create array of clip ids so that the html can loop through it (posts.html)
+                data.forEach(function(clip) {
+                    console.log(clip);
+
+                    var feedClip = new FeedClip(
+                        clip.id,
+                        clip.name,
+                        clip.views,
+                        clip.likes,
+                        clip.file,
+                        clip.image,
+                        clip.user.firstname,
+                        clip.user.lastName,
+                        clip.user.username,
+                        clip.user.image
+                    );
+
+                    thisFeedClips.push(feedClip);
+                });
+                this.data.feedClips = thisFeedClips;
+
+            });
+        refresher.complete();
+
+        function FeedClip(id, name, views, likes, file, clipImage, firstname, lastName, username, image) {
+            this.id = id;
+            this.name = name;
+            this.views = views;
+            this.likes = likes;
+
+            var clipFile = protocol + website + file;
+            //var trustFile = $sce.trustAsResourceUrl(clipFile);
+            var trustFile = thisSanitizer.bypassSecurityTrustResourceUrl(clipFile);
+            this.clipImage = protocol + website + clipImage;
+
+            this.file = trustFile;
+            this.firstname = firstname;
+            this.lastName = lastName;
+            this.username = username;
+            this.image = protocol + website + image;
+        };
     }
 
     public increasePlayCount(clipId) {
