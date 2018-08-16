@@ -71,8 +71,8 @@ export class ClipServiceProvider {
     	getShared(sessionToken){
     		
     		//http://www.relivvit.com/api/rest/clips/shared?order-by=created
-    		var shared_clips_url = this.api_base + 'shared?order-by=created' + '&session-token=' + '1_ffb732c2c64c8aa94cd72fbece16ae5b';
-    		//var shared_clips_url = this.api_base + 'shared?order-by=created' + '&session-token=' + sessionToken + '&offset=20000';
+    		//var shared_clips_url = this.api_base + 'shared?order-by=created' + '&session-token=' + '1_ffb732c2c64c8aa94cd72fbece16ae5b';
+    		var shared_clips_url = this.api_base + 'shared?order-by=created' + '&session-token=' + sessionToken;
             
             return this.httpClient.get(shared_clips_url);
     	}

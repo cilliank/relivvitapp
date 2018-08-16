@@ -35,6 +35,13 @@ to do this. <ion-buttons start> will add a button to the left side and <ion-butt
 		      refreshingText="Refreshing...">
     	</ion-refresher-content>
 	  </ion-refresher>
+	
+	<p class="text-center">
+      <b><a class="color-white">{{data.notFollowingAnyoneMessage1}}</a></b>
+    </p>
+    <p class="text-center">
+      <b><a class="color-white">{{data.notFollowingAnyoneMessage2}}</a></b>
+    </p>
     
 	<div class="list vine-feeds" *ngFor="let clip of data.feedClips">
 	  <div class="item item-avatar avatar-small">

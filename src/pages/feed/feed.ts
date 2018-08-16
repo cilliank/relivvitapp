@@ -63,6 +63,10 @@ export class FeedPage {
                     this.data.notFollowingAnyoneMessage1 = "You are not following anyone.";
                     this.data.notFollowingAnyoneMessage2 = "Get following!";
                 }
+                else{
+                    this.data.notFollowingAnyoneMessage1 = "";
+                    this.data.notFollowingAnyoneMessage2 = "";
+                }
 
                 console.log("Number of Feed Clips: " + this.data.numClips);
 
@@ -223,6 +227,10 @@ export class FeedPage {
                     this.data.notFollowingAnyoneMessage1 = "You are not following anyone.";
                     this.data.notFollowingAnyoneMessage2 = "Get following!";
                 }
+                else{
+                    this.data.notFollowingAnyoneMessage1 = "";
+                    this.data.notFollowingAnyoneMessage2 = "";
+                }
 
                 console.log("Number of Feed Clips: " + this.data.numClips);
 
@@ -277,6 +285,10 @@ export class FeedPage {
                 if (this.data.numClips == 0) {
                     this.data.notFollowingAnyoneMessage1 = "You are not following anyone.";
                     this.data.notFollowingAnyoneMessage2 = "Get following!";
+                }
+                else{
+                    this.data.notFollowingAnyoneMessage1 = "";
+                    this.data.notFollowingAnyoneMessage2 = "";
                 }
 
                 console.log("Number of Feed Clips: " + this.data.numClips);
