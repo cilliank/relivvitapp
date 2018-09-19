@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { ClipServiceProvider } from '../../providers/clip-service/clip-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OtherUserFollowersPage } from '../../pages/other-user-followers/other-user-followers';
+import { FeedPage } from '../../pages/feed/feed';
+import { TabsPage } from '../../pages/tabs/tabs';
 
 /**
  * Generated class for the OtherUserPage page.
@@ -31,6 +33,7 @@ export class OtherUserPage {
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public ProfileService: ProfileServiceProvider,
         public ClipService: ClipServiceProvider,
+        public alertCtrl: AlertController,
         public sanitizer: DomSanitizer) {
 
         var protocol = "http://";
@@ -256,6 +259,48 @@ export class OtherUserPage {
         this.ProfileService.setFollowing(filter_array(this.following));
     };
 
+    public blockUser(user) {
+
+        var data: any;
+
+        let confirm = this.alertCtrl.create({
+            title: 'Block User',
+            message: 'Are you sure you want to block the user  ' + user.username + '?',
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        console.log('You are sure');
+
+                        this.ProfileService.block(user.userId, this.data.sessionToken);
+                        
+                        this.navCtrl.push(TabsPage);
+
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: () => {
+                        console.log('You are not sure');
+                        //So do nothing
+                    }
+                }
+            ]
+        });
+
+
+        confirm.present();
+
+        function findWithAttr(array, attr, value) {
+
+            for (var i = 0; i < array.length; i += 1) {
+                if (array[i][attr] === value) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    };
 
 
     ionViewDidLoad() {

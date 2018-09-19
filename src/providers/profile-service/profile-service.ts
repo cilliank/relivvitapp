@@ -92,6 +92,15 @@ export class ProfileServiceProvider {
             return this.httpClient.get(user_url);
             
         }
+        getBlocked(sessionToken){
+            //GET http://www.relivvit.com/api/rest/user/blocked
+            var profile_url = this.api_base;
+            
+            var blocked_url = profile_url + 'blocked?session-token=' + sessionToken;
+            
+            return this.httpClient.get(blocked_url);
+            
+        }
         getFollowerUsers(data,sessionToken){
             //GET http://www.relivvit.com/api/rest/user/public/ckelly
             var profile_url = this.api_base;
@@ -191,6 +200,47 @@ export class ProfileServiceProvider {
             		this.profile.following--;
                 	return response;
             	});
+        }
+        block(userId,sessionToken){
+        	
+        	var block_url = this.api_base + 'block' + '?session-token=' + sessionToken;
+
+			if(this.otherUser.followers != null){
+            	this.otherUser.followers.pop(this.profile.userId);
+            	this.otherUser.numFollowers--;
+        	}
+        	else{
+        		if(this.otherUser != ""){
+        			if(this.otherUser.followers != null){
+            			this.otherUser.followers.pop(this.profile.userId);
+            			this.otherUser.numFollowers--;
+            		}
+        		}
+        	}
+            
+            var data = {
+                'userId': userId
+            };
+            
+            return this.httpClient.post(block_url, data).subscribe(
+            	response => {
+                	return response;
+            	});
+        	
+        }
+        unblock(userId,sessionToken){
+        	
+        	var unblock_url = this.api_base + 'unblock' + '?session-token=' + sessionToken;
+            
+            var data = {
+                'userId': userId
+            };
+            
+            return this.httpClient.post(unblock_url, data).subscribe(
+            	response => {
+                	return response;
+            	});
+        	
         }
         setOtherUserLocal(data){
             

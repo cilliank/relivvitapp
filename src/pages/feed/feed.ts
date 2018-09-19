@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { ClipServiceProvider } from '../../providers/clip-service/clip-service';
 import { OtherUserPage } from '../../pages/other-user/other-user';
@@ -63,7 +63,7 @@ export class FeedPage {
                     this.data.notFollowingAnyoneMessage1 = "You are not following anyone.";
                     this.data.notFollowingAnyoneMessage2 = "Get following!";
                 }
-                else{
+                else {
                     this.data.notFollowingAnyoneMessage1 = "";
                     this.data.notFollowingAnyoneMessage2 = "";
                 }
@@ -163,6 +163,7 @@ export class FeedPage {
         private file: File,
         private device: Device,
         public loadingCtrl: LoadingController,
+        public alertCtrl: AlertController,
         public zone: NgZone) {
 
         var protocol = "http://";
@@ -227,7 +228,7 @@ export class FeedPage {
                     this.data.notFollowingAnyoneMessage1 = "You are not following anyone.";
                     this.data.notFollowingAnyoneMessage2 = "Get following!";
                 }
-                else{
+                else {
                     this.data.notFollowingAnyoneMessage1 = "";
                     this.data.notFollowingAnyoneMessage2 = "";
                 }
@@ -286,7 +287,7 @@ export class FeedPage {
                     this.data.notFollowingAnyoneMessage1 = "You are not following anyone.";
                     this.data.notFollowingAnyoneMessage2 = "Get following!";
                 }
-                else{
+                else {
                     this.data.notFollowingAnyoneMessage1 = "";
                     this.data.notFollowingAnyoneMessage2 = "";
                 }
@@ -396,6 +397,86 @@ export class FeedPage {
 
             });
 
+    };
+
+    public blockClip(clip) {
+
+        var data: any;
+
+        let confirm = this.alertCtrl.create({
+            title: 'Block Clip',
+            message: 'Are you sure you want to block the clip  ' + clip.name + ' from your timeline?',
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        console.log('You are sure');
+
+                        this.clipService.block(clip.id, this.data.sessionToken).subscribe(
+
+                            response => {
+
+                                data = response;
+                                //Remove the clip from the scope
+                                var index = findWithAttr(this.data.feedClips, 'id', clip.id);
+                                if (index > -1) {
+                                    this.data.feedClips.splice(index, 1);
+                                }
+                                
+                                //Present the user with a second option of reporting the clip
+                                let report = this.alertCtrl.create({
+                                    title: 'Report Clip',
+                                    message: 'Do you also want to report this clip as having inappropriate content?',
+                                    buttons: [
+                                        {
+                                            text: 'Yes',
+                                            handler: () => {
+                                                console.log('You are sure');
+                                                this.clipService.report(clip.id, this.data.sessionToken).subscribe(
+
+                                                    response => {
+
+                                                        data = response;
+
+                                                    });
+                                            }
+                                        },
+                                        {
+                                            text: 'No',
+                                            handler: () => {
+                                                console.log('You are not sure');
+                                                //So do nothing
+                                            }
+                                        }
+                                    ]
+                                });
+                                report.present();
+                            });
+
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: () => {
+                        console.log('You are not sure');
+                        //So do nothing
+                    }
+                }
+            ]
+        });
+
+
+        confirm.present();
+
+        function findWithAttr(array, attr, value) {
+
+            for (var i = 0; i < array.length; i += 1) {
+                if (array[i][attr] === value) {
+                    return i;
+                }
+            }
+            return -1;
+        }
     };
 
     public saveToCameraRoll(file) {

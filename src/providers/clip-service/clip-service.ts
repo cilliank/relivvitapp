@@ -133,6 +133,22 @@ export class ClipServiceProvider {
             return this.httpClient.put(clips_url, clipData);
             
         }
+        block(clipId,sessionToken){
+            var block_clip_url = this.api_base + clipId + '/block?session-token=' + sessionToken;
+            
+            var data = {
+            }
+            
+            return this.httpClient.post(block_clip_url, data);     
+        }
+        report(clipId,sessionToken){
+            var report_clip_url = this.api_base + clipId + '/report?session-token=' + sessionToken;
+            
+            var data = {
+            }
+            
+            return this.httpClient.post(report_clip_url, data);     
+        }
         share(data,sessionToken){
             //POST http://www.relivvit.com/api/rest/clips/444/share
             
