@@ -71,22 +71,23 @@ to do this. <ion-buttons start> will add a button to the left side and <ion-butt
 		      
   				<ion-icon name="warning" (click)="blockClip(clip)"></ion-icon>
 		
-		     <!-- <div center class="actions row no-padder row-center color-grey-500">
+		     <div center class="actions row no-padder row-center color-grey-500">
 		      	
 		      	<button (click)="share('f',clip.file,clip.image,clip.name);" class="button button-light">
 		      		 <ion-icon name="logo-facebook"></ion-icon>
 		      	</button>
-		      	 <button (click)="share('w',clip.file,clip.image,clip.name);" class="button button-light">
-		       		 <ion-icon name="logo-whatsapp"></ion-icon>
-		      	</button>
-		      	<button (click)="share('t',clip.file,clip.image,clip.name);" class="button button-light">
-		      		 <ion-icon name="logo-twitter"></ion-icon>
-		      	</button>
-		      	 <button (click)="share('i',clip.file,clip.image,clip.name);" class="button button-light">
+		      	<button (click)="share('i',clip.file,clip.image,clip.name);" class="button button-light">
 		      		 <ion-icon name="logo-instagram"></ion-icon>
 		      	</button>
 		      	<button (click)="saveToCameraRoll(clip.file)" class="button button-light">
 		      		<i class="icon ion-ios-download-outline"></i>
+		      	</button>
+		      </div>
+		      	 <!--  <button (click)="share('w',clip.file,clip.image,clip.name);" class="button button-light">
+		       		 <ion-icon name="logo-whatsapp"></ion-icon>
+		      	</button>
+		      	<button (click)="share('t',clip.file,clip.image,clip.name);" class="button button-light">
+		      		 <ion-icon name="logo-twitter"></ion-icon>
 		      	</button>
 		      
 		         <div class="col no-padder">
