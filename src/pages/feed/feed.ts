@@ -352,14 +352,11 @@ export class FeedPage {
 
     public async share(file, image, clipName) {
         try {
-            let filePath: string = await this.fileDownloader.downloadFile(file.changingThisBreaksApplicationSecurity);
+            let fileUrl: string = file.changingThisBreaksApplicationSecurity;
+            let filePath: string = await this.fileDownloader.downloadFile(fileUrl);
             this.socialSharing.share(null, null, filePath, null);
         } catch (e) {
-            this.toastCtrl.create({
-                message: `Sorry, something went wrong while sharing {clipName}, please try again`,
-                duration: 3000,
-                position: 'bottom'
-            }).present();
+            this.showToast(`Sorry, something went wrong while sharing {clipName}, please try again`);
         }
     };
 
@@ -461,7 +458,30 @@ export class FeedPage {
         }
     };
 
+    private showToast(message) {
+      this.toastCtrl.create({
+        message: message,
+        duration: 3000,
+        position: 'bottom'
+      }).present();
+    }
+
     public async saveToCameraRoll(file) {
+        try {
+            let fileUrl: string = file.changingThisBreaksApplicationSecurity;
+            let filePath: string = await this.fileDownloader.downloadFile(fileUrl);
+
+            this.photoLibrary.requestAuthorization().then(() => {
+              this.photoLibrary.saveVideo(filePath, 'Relivvit Videos').then(success => {
+                this.showToast(`Video saved successfully`);
+              }, error => {
+                this.showToast(`Sorry, something went wrong while save video, please try again`);
+              });
+            });
+        } catch (e) {
+            this.showToast(`Sorry, something went wrong while save video, please try again`);
+        }
+
         /*console.log("Download to camera roll. " + file);
 
         let loading = this.loadingCtrl.create({
