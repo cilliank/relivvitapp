@@ -60,6 +60,7 @@ import { ClipServiceProvider } from '../providers/clip-service/clip-service';
 import { LoginProvider } from '../providers/login/login';
 import { SignupProvider } from '../providers/signup/signup';
 import { VideonavProvider } from '../providers/videonav/videonav';
+import { FileDownloader } from "../providers/file-downloader/file-downloader";
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { VideonavProvider } from '../providers/videonav/videonav';
     FileTransfer,
     FileTransferObject,
     File,
-    Device
+    Device,
+    FileDownloader
   ]
 })
 export class AppModule {}
