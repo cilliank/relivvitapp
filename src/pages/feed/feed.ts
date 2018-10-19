@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import { ProfileServiceProvider } from '../../providers/profile-service/profile-service';
 import { ClipServiceProvider } from '../../providers/clip-service/clip-service';
 import { OtherUserPage } from '../../pages/other-user/other-user';
@@ -11,6 +11,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { Device } from '@ionic-native/device';
 
 import { PhotoLibrary } from '@ionic-native/photo-library';
+import { FileDownloader } from "../../providers/file-downloader/file-downloader";
 
 /**
  * Generated class for the FeedPage page.
@@ -154,8 +155,11 @@ export class FeedPage {
         };
     }
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,
-        public profileService: ProfileServiceProvider, public clipService: ClipServiceProvider,
+    constructor(
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public profileService: ProfileServiceProvider,
+        public clipService: ClipServiceProvider,
         public sanitizer: DomSanitizer,
         private photoLibrary: PhotoLibrary,
         private socialSharing: SocialSharing,
@@ -164,7 +168,10 @@ export class FeedPage {
         private device: Device,
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
-        public zone: NgZone) {
+        public zone: NgZone,
+        private fileDownloader: FileDownloader,
+        private toastCtrl: ToastController
+    ) {
 
         var protocol = "http://";
         var website = "138.201.90.98";
@@ -343,41 +350,13 @@ export class FeedPage {
         console.log('Increasing play count for clip: ' + clipId);
     };
 
-    public share(type, file, image, clipName) {
-        if (type == 'f') {
-            /*this.socialSharing.shareViaFacebook(clipName, '', file).then(() => {
-                // Success!
-                console.log('Sharing to Facebook: ' + clipName);
-            }).catch(() => {
-                // Error!
-            });*/
-        }
-        if (type == 't') {
-            this.socialSharing.shareViaTwitter(clipName, file, file).then(() => {
-                // Success!
-                console.log('Sharing to Twitter: ' + clipName);
-            }).catch(() => {
-                // Error!
-            });
-
-        }
-        if (type == 'w') {
-            this.socialSharing.shareViaWhatsApp(clipName, file, file).then(() => {
-                // Success!
-                console.log('Sharing to Whatsapp: ' + clipName);
-            }).catch(() => {
-                // Error!
-            });
-
-        }
-        if (type == 'i') {
-            this.socialSharing.shareViaInstagram(clipName, file).then(() => {
-                // Success!
-                console.log('Sharing to Instagram: ' + clipName);
-            }).catch(() => {
-                // Error!
-            });
-
+    public async share(file, image, clipName) {
+        try {
+            let fileUrl: string = file.changingThisBreaksApplicationSecurity;
+            let filePath: string = await this.fileDownloader.downloadFile(fileUrl);
+            this.socialSharing.share(null, null, filePath, null);
+        } catch (e) {
+            this.showToast(`Sorry, something went wrong while sharing {clipName}, please try again`);
         }
     };
 
@@ -422,7 +401,7 @@ export class FeedPage {
                                 if (index > -1) {
                                     this.data.feedClips.splice(index, 1);
                                 }
-                                
+
                                 //Present the user with a second option of reporting the clip
                                 let report = this.alertCtrl.create({
                                     title: 'Report Clip',
@@ -479,7 +458,30 @@ export class FeedPage {
         }
     };
 
-    public saveToCameraRoll(file) {
+    private showToast(message) {
+      this.toastCtrl.create({
+        message: message,
+        duration: 3000,
+        position: 'bottom'
+      }).present();
+    }
+
+    public async saveToCameraRoll(file) {
+        try {
+            let fileUrl: string = file.changingThisBreaksApplicationSecurity;
+            let filePath: string = await this.fileDownloader.downloadFile(fileUrl);
+
+            this.photoLibrary.requestAuthorization().then(() => {
+              this.photoLibrary.saveVideo(filePath, 'Relivvit Videos').then(success => {
+                this.showToast(`Video saved successfully`);
+              }, error => {
+                this.showToast(`Sorry, something went wrong while save video, please try again`);
+              });
+            });
+        } catch (e) {
+            this.showToast(`Sorry, something went wrong while save video, please try again`);
+        }
+
         /*console.log("Download to camera roll. " + file);
 
         let loading = this.loadingCtrl.create({
@@ -519,15 +521,15 @@ export class FeedPage {
                         loading.dismiss();
 
                         //$cordovaToast.show("Vidoe saved successfully", "long", "center");
-                    }, 
+                    },
                     error => {
 
                         loading.dismiss();
                         //$cordovaToast.show("Oops! unable to save video, please try after sometime.", "long", "center");
                     });
-            }, 
+            },
             error => {
-                //alert(JSON.stringify(error));                
+                //alert(JSON.stringify(error));
                 loading.dismiss();
                 //$cordovaToast.show("Oops! unable to save video, please try after sometime.", "long", "center");
             });
@@ -552,21 +554,21 @@ export class FeedPage {
 
         /*var data : any;
         var trustFile : SafeResourceUrl;
-        
+
         this.photoLibrary.requestAuthorization({}).then(
-        
+
             response => {
                 data = response;
-                
+
                 var fileStr = file.toString();
-                
+
                 trustFile = this.sanitizer.bypassSecurityTrustUrl(fileStr);
-                
+
                 this.photoLibrary.saveVideo(trustFile.toString(),"Relivvit Videos");
-                
+
             }
-        );  
-        
+        );
+
         const fileTransfer: FileTransferObject = this.transfer.create();
           fileTransfer.download(file, this.file.applicationStorageDirectory + file).then((entry) => {
 
@@ -577,9 +579,9 @@ export class FeedPage {
 
              SocialSharing.shareWithOptions(this.options);
 
-          }, 
+          },
           (error) => {
-          
+
           }); */
 
     }
