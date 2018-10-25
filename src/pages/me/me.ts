@@ -7,6 +7,7 @@ import { FollowersPage } from '../../pages/followers/followers';
 import { FollowingPage } from '../../pages/following/following';
 import { SettingsPage } from '../../pages/settings/settings';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Camera } from '@ionic-native/camera';
 
 /**
  * Generated class for the MePage page.
@@ -23,6 +24,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class MePage {
 
     public data: any;
+    base64Image: any;
 
     //Get the current user profile
     profile = this.ProfileService.get();
@@ -110,6 +112,7 @@ export class MePage {
         public ProfileService: ProfileServiceProvider,
         public ClipService: ClipServiceProvider,
         public sanitizer: DomSanitizer,
+        private camera: Camera,
         public alertCtrl: AlertController) {
 
         var protocol = "http://";
@@ -381,7 +384,17 @@ export class MePage {
     public uploadProfilePic() {
         console.log('Uploading profile pic...');
 
-
+        this.camera.getPicture({
+            sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
+            destinationType: this.camera.DestinationType.DATA_URL
+        }).then((imageData) => {
+            this.base64Image = 'data:image/jpeg;base64,'+imageData;
+        }, (err) => {
+              console.log(err);
+        });
+        
+        console.log(this.base64Image);
+        
     }
 
     ionViewDidLoad() {

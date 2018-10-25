@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.relivvit" version="0.0.10" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.relivvit" version="0.0.12" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Relivvit</name>
     <description>Watch it. Share it. Relivvit</description>
     <author email="ckelly@relivvit.com" href="https://www.relivvit.com/">Relivvit Ltd.</author>
@@ -19,6 +19,7 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
+    <preference name="ShowSplashScreen" value="false" />
     <preference name="AllowInlineMediaPlayback" value="true" />
     <platform name="android">
         <allow-intent href="market:*" />
@@ -90,4 +91,5 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.0" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
 </widget>

@@ -99,6 +99,9 @@ export class CreateClipPage {
             response => {
 
                 data = response;
+                
+                //Update the local video so that it is using the switched version next time a video is created
+                this.clipService.setVideo(data);
 
                 var videoFile = "http://138.201.90.98" + data.file;
 
@@ -118,7 +121,7 @@ export class CreateClipPage {
     public create() {
 
         var profile = this.profileService.get();
-        var video = this.clipService.getVideo();
+        this.video = this.clipService.getVideo();
         var videoId = this.video.id;
 
         console.log("Creating clip...");

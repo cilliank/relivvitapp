@@ -356,7 +356,7 @@ export class FeedPage {
             let filePath: string = await this.fileDownloader.downloadFile(fileUrl);
             this.socialSharing.share(null, null, filePath, null);
         } catch (e) {
-            this.showToast(`Sorry, something went wrong while sharing {clipName}, please try again`);
+            this.showToast(`Sorry, something went wrong while sharing this clip. Please try again`);
         }
     };
 
