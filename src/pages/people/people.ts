@@ -57,7 +57,7 @@ export class PeoplePage {
                     this.firstname = firstname;
                     this.lastName = lastName;
                     this.username = username;
-                    this.image = "http://138.201.90.98" + image;
+                    this.image = "http://159.69.156.106" + image;
                     this.icon = icon;
                 };
 

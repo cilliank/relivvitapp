@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.relivvit" version="0.0.12" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.relivvit" version="0.0.15" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Relivvit</name>
     <description>Watch it. Share it. Relivvit</description>
     <author email="ckelly@relivvit.com" href="https://www.relivvit.com/">Relivvit Ltd.</author>

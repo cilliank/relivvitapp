@@ -103,7 +103,7 @@ export class CreateClipPage {
                 //Update the local video so that it is using the switched version next time a video is created
                 this.clipService.setVideo(data);
 
-                var videoFile = "http://138.201.90.98" + data.file;
+                var videoFile = "http://159.69.156.106" + data.file;
 
                 var trust = this.sanitizer.bypassSecurityTrustResourceUrl(videoFile);
 
@@ -239,7 +239,7 @@ export class CreateClipPage {
                         this.clipService.setVideo(data);
                         this.video = data;
 
-                        var videoFile = "http://138.201.90.98" + data.file;
+                        var videoFile = "http://159.69.156.106" + data.file;
 
                         var trust = this.sanitizer.bypassSecurityTrustResourceUrl(videoFile);
 

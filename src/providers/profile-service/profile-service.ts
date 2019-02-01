@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class ProfileServiceProvider {
 
-	api_base = 'http://138.201.90.98/api/rest/user/';
+	api_base = 'http://159.69.156.106/api/rest/user/';
     profile: any;
     otherUser; any;
     following = [];

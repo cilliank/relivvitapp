@@ -14,7 +14,7 @@ export class VideonavProvider {
     console.log('Hello VideonavProvider Provider');
   }
    
-    api_base = 'http://138.201.90.98/api/rest/';
+    api_base = 'http://159.69.156.106/api/rest/';
     
     dates = [];
     times = [];

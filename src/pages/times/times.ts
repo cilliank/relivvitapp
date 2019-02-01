@@ -82,7 +82,7 @@ export class TimesPage {
 
                 var videoData = {
                     id: data.id,
-                    file: "http://138.201.90.98" + data.file,
+                    file: "http://159.69.156.106" + data.file,
                     camera: data.camera
                 }
 

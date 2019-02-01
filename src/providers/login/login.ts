@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LoginProvider {
     
-  api_url = 'http://138.201.90.98/api/rest/security/session';
+  api_url = 'http://159.69.156.106/api/rest/security/session';
     
   constructor(public httpClient: HttpClient) {
     console.log('Hello LoginProvider Provider');
@@ -25,7 +25,7 @@ export class LoginProvider {
   
    reset(data){
    
-       var api_pass_url = 'http://138.201.90.98/api/rest/security/reset-password';
+       var api_pass_url = 'http://159.69.156.106/api/rest/security/reset-password';
             
             return this.httpClient.post(api_pass_url, data)
             

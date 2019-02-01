@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SignupProvider {
 
-  api_url = 'http://138.201.90.98/api/rest/user';  
+  api_url = 'http://159.69.156.106/api/rest/user';  
     
   constructor(public httpClient: HttpClient) {
     console.log('Hello SignupProvider Provider');

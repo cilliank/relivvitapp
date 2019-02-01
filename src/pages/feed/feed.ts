@@ -43,7 +43,7 @@ export class FeedPage {
     ionViewWillEnter() {
 
         var protocol = "http://";
-        var website = "138.201.90.98";
+        var website = "159.69.156.106";
 
         var newClips = this.clipService.getNewClips();
 
@@ -174,7 +174,7 @@ export class FeedPage {
     ) {
 
         var protocol = "http://";
-        var website = "138.201.90.98";
+        var website = "159.69.156.106";
 
         this.data = {
             'userId': this.profile.userId,
@@ -271,7 +271,7 @@ export class FeedPage {
 
     doRefresh(refresher) {
         var protocol = "http://";
-        var website = "138.201.90.98";
+        var website = "159.69.156.106";
 
         var sessionToken = this.data.sessionToken;
 

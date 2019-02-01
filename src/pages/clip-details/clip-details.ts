@@ -33,7 +33,7 @@ export class ClipDetailsPage {
 
         console.log('ClipFile: ' + this.clip.file);
 
-        var clipFile = "http://138.201.90.98" + this.clip.file;
+        var clipFile = "http://159.69.156.106" + this.clip.file;
 
         var trust = sanitizer.bypassSecurityTrustResourceUrl(clipFile);
 
@@ -43,7 +43,7 @@ export class ClipDetailsPage {
         this.data = {
             'clipFile': trust,
             'clipName': '',
-            'clipImage': 'http://138.201.90.98' + this.clip.image,
+            'clipImage': 'http://159.69.156.106' + this.clip.image,
             'share': true
         };
 

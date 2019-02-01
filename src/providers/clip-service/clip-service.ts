@@ -12,7 +12,7 @@ export class ClipServiceProvider {
 
     clip = '';
     video = '';
-    api_base = 'http://138.201.90.98/api/rest/clips/';
+    api_base = 'http://159.69.156.106/api/rest/clips/';
     
     newClips = [];
     newProfileClips = [];
@@ -91,7 +91,7 @@ export class ClipServiceProvider {
     	switch(data){
     		
     		//Switch from current video to another one 
-    		var videos_url = 'http://138.201.90.98/api/rest/videos/switch'
+    		var videos_url = 'http://159.69.156.106/api/rest/videos/switch'
     			+ '?videoId=' + data.videoId + '&camera=' + data.camera + '&currTime=' + data.currTime;
     		
     		if(data.addTime != null){

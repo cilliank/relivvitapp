@@ -7,7 +7,7 @@ import { FollowersPage } from '../../pages/followers/followers';
 import { FollowingPage } from '../../pages/following/following';
 import { SettingsPage } from '../../pages/settings/settings';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Camera } from '@ionic-native/camera';
+//import { Camera } from '@ionic-native/camera';
 
 /**
  * Generated class for the MePage page.
@@ -32,7 +32,7 @@ export class MePage {
     ionViewWillEnter() {
 
         var protocol = "http://";
-        var website = "138.201.90.98";
+        var website = "159.69.156.106";
 
         var newClips = this.ClipService.getNewProfileClips();
 
@@ -112,11 +112,11 @@ export class MePage {
         public ProfileService: ProfileServiceProvider,
         public ClipService: ClipServiceProvider,
         public sanitizer: DomSanitizer,
-        private camera: Camera,
+        //private camera: Camera,
         public alertCtrl: AlertController) {
 
         var protocol = "http://";
-        var website = "138.201.90.98";
+        var website = "159.69.156.106";
 
 
 
@@ -382,7 +382,7 @@ export class MePage {
     }
 
     public uploadProfilePic() {
-        console.log('Uploading profile pic...');
+        /*console.log('Uploading profile pic...');
 
         this.camera.getPicture({
             sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
@@ -393,7 +393,7 @@ export class MePage {
               console.log(err);
         });
         
-        console.log(this.base64Image);
+        console.log(this.base64Image);*/
         
     }
 

@@ -37,7 +37,7 @@ export class OtherUserPage {
         public sanitizer: DomSanitizer) {
 
         var protocol = "http://";
-        var website = "138.201.90.98";
+        var website = "159.69.156.106";
 
         this.data = {
             'userId': this.otherUser.id,
