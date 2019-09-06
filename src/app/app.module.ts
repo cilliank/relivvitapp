@@ -31,6 +31,7 @@ import { DatesPage } from '../pages/dates/dates';
 import { CreateClipPage } from '../pages/create-clip/create-clip';
 import { ClipDetailsPage } from '../pages/clip-details/clip-details';
 import { OtherUserFollowersPage } from '../pages/other-user-followers/other-user-followers';
+import { PopoverPage } from '../pages/popover/popover';
 
 import { SignupPageModule } from '../pages/signup/signup.module';
 import { LoginPageModule } from '../pages/login/login.module';
@@ -52,6 +53,7 @@ import { DatesPageModule } from '../pages/dates/dates.module';
 import { CreateClipPageModule } from '../pages/create-clip/create-clip.module';
 import { ClipDetailsPageModule } from '../pages/clip-details/clip-details.module';
 import { OtherUserFollowersPageModule } from '../pages/other-user-followers/other-user-followers.module';
+import { PopoverPageModule } from '../pages/popover/popover.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -91,7 +93,8 @@ import { FileDownloader } from "../providers/file-downloader/file-downloader";
     TimesPageModule,
     CreateClipPageModule,
     ClipDetailsPageModule,
-    OtherUserFollowersPageModule
+    OtherUserFollowersPageModule,
+    PopoverPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -116,7 +119,8 @@ import { FileDownloader } from "../providers/file-downloader/file-downloader";
     TimesPage,
     CreateClipPage,
     ClipDetailsPage,
-    OtherUserFollowersPage
+    OtherUserFollowersPage,
+    PopoverPage
   ],
   providers: [
     StatusBar,

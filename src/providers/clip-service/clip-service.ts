@@ -185,15 +185,23 @@ export class ClipServiceProvider {
             return this.httpClient.post(clips_url, unshareData);
             
         }
-        increasePlayCount(data,sessionToken){
+        increasePlayCount(clipId,sessionToken){
         	//POST http://www.relivvit.com/api/rest/clips/550/playcount
         	
-        	var clipId = data.clipId;
-        	
-        	var playcount_url = this.api_base + clipId + '/playcount';
+        	var playcount_url = this.api_base + clipId + '/playcount' + '?session-token=' + sessionToken;;
         	
         	console.log('Increasing playcount for clip: ' + clipId);
             
-            return this.httpClient.post(playcount_url, data);
+            return this.httpClient.post(playcount_url, clipId);
+        }
+        
+        like(clipId,sessionToken){
+        	//POST http://www.relivvit.com/api/rest/clips/550/like
+        	
+        	var like_url = this.api_base + clipId + '/like' + '?session-token=' + sessionToken;
+        	
+        	console.log('Increasing likes for clip: ' + clipId);
+            
+            return this.httpClient.post(like_url, clipId);
         }
 }

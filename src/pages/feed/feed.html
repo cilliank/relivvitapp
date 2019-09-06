@@ -50,16 +50,21 @@ to do this. <ion-buttons start> will add a button to the left side and <ion-butt
 	    <div class="row no-padder">
 	      <div class="col col-67 no-padder">
 	        <div class="font-bold text-ellipsis text-sm" (click)="goUser(clip.username)">@{{clip.username}}</div>
-	        <!-- <div class="text-xs color-grey-500">2d at Meat Market</div> -->
 	      </div>
-	      <!--  <div class="col no-padder text-right">
-	        <div class="count-views text-sm">{{clip.views}}</div>
-	        <span class="count-title text-xs color-grey-500">Views</span>
-	      </div> -->
+	      <div>
+	        	<!--  <button ion-button icon-left float-right clear small (click)="presentPopover($event)">
+	      			<ion-icon name="more"></ion-icon>
+	      		</button>-->
+	      		<button ion-button icon-right clear small name="warning" (click)="blockClip(clip)">
+		        	<ion-icon name="warning"></ion-icon>
+		        	<div>Report</div>
+		      	</button>
+	      	</div>
+	      
 	    </div>
 	  </div>
 		  <div class="item item-body no-padder b-none">
-		    <video controls class="video w-full" playsinline="true" mute (play)="increasePlayCount('clip.id')" poster="{{clip.clipImage}}">
+		    <video controls class="video w-full" playsinline="true" mute (play)="increasePlayCount(clip.id)" poster="{{clip.clipImage}}">
 		      <source [src]="clip.file" type="video/mp4">
 		      <source [src]="clip.file" type="video/ogg">
 		    </video>
@@ -69,17 +74,35 @@ to do this. <ion-buttons start> will add a button to the left side and <ion-butt
 		        {{clip.name}}
 		      </div>
 
-  				<ion-icon name="warning" (click)="blockClip(clip)"></ion-icon>
-
 		     <div center class="actions row no-padder row-center color-grey-500">
-            <button (click)="share(clip.file, clip.image, clip.name)" class="button button-light">
-              <ion-icon name="share" ios="ios-share" md="md-share"></ion-icon>
-            </button>
-
-		      	<button (click)="saveToCameraRoll(clip.file)" class="button button-light">
-		      		<i class="icon ion-ios-download-outline"></i>
+		     		      			      	
+		      	<button ion-button icon-left clear small>
+		      		<ion-icon name="eye"></ion-icon>
+		      		<div>{{clip.views}} Views</div>
 		      	</button>
+		      	
+			     <button ion-button icon-left clear small (click)="like(clip.id)">
+		        	<ion-icon name="thumbs-up"></ion-icon>
+		        	<div>{{clip.likes}} Likes</div>
+		      	</button>
+		      
+	            <button ion-button icon-left clear small (click)="share(clip.file, clip.image, clip.name)">
+	              <ion-icon name="share" ios="ios-share" md="md-share"></ion-icon>
+	              <div>Share</div>
+	            </button>
+	
+		      	<button ion-button icon-left clear small (click)="saveToCameraRoll(clip.file)">
+		      		<i class="icon ion-ios-download-outline"></i>
+		      		<div>Download</div>
+		      	</button>
+	      	
 		      </div>
+		      <!-- <div>
+		      	<button ion-button icon-right clear small name="warning" (click)="blockClip(clip)">
+		        	<ion-icon name="warning"></ion-icon>
+		        	<div>Report</div>
+		      	</button>
+		      </div> -->
 		      	 <!--  <button (click)="share('w',clip.file,clip.image,clip.name);" class="button button-light">
 		       		 <ion-icon name="logo-whatsapp"></ion-icon>
 		      	</button>

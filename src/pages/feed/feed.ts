@@ -6,12 +6,14 @@ import { ProfileServiceProvider } from '../../providers/profile-service/profile-
 import { ClipServiceProvider } from '../../providers/clip-service/clip-service';
 import { OtherUserPage } from '../../pages/other-user/other-user';
 import { PeoplePage } from '../../pages/people/people';
+import { PopoverPage } from '../../pages/popover/popover';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Device } from '@ionic-native/device';
 
 import { PhotoLibrary } from '@ionic-native/photo-library';
 import { FileDownloader } from "../../providers/file-downloader/file-downloader";
+import { PopoverController } from 'ionic-angular';
 
 /**
  * Generated class for the FeedPage page.
@@ -154,6 +156,17 @@ export class FeedPage {
             this.image = protocol + website + image;
         };
     }
+    
+    presentPopover(myEvent) {
+        
+        console.log('PopoverWorking');
+        
+        let popover = this.popoverCtrl.create(PopoverPage);
+        popover.present({
+            ev : myEvent
+        });
+        
+    }
 
     constructor(
         public navCtrl: NavController,
@@ -170,7 +183,8 @@ export class FeedPage {
         public alertCtrl: AlertController,
         public zone: NgZone,
         private fileDownloader: FileDownloader,
-        private toastCtrl: ToastController
+        private toastCtrl: ToastController,
+        public popoverCtrl: PopoverController
     ) {
 
         var protocol = "http://";
@@ -346,9 +360,75 @@ export class FeedPage {
         };
     }
 
-    public increasePlayCount(clipId) {
-        console.log('Increasing play count for clip: ' + clipId);
-    };
+     public async increasePlayCount(clipId) {
+        
+        var sessionToken = this.data.sessionToken;
+        
+        var data: any;
+        
+        this.clipService.increasePlayCount(clipId, sessionToken).subscribe(
+
+            response => {
+
+                data = response;
+                
+                //check to see if the clip had been liked already
+                if(data.error == null){
+                    //Update current view
+                    var index = findWithAttr(this.data.feedClips, 'id', clipId);
+                    this.data.feedClips[index].views++;
+                }
+                else{
+                    console.log('Not going to increment likes for clip: ' + clipId + '. User already likes clip.');
+                }
+            }
+         );
+        
+        function findWithAttr(array, attr, value) {
+
+            for (var i = 0; i < array.length; i += 1) {
+                if (array[i][attr] === value) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
+    
+    public async like(clipId) {
+        
+        var sessionToken = this.data.sessionToken;
+        
+        var data: any;
+        
+        this.clipService.like(clipId, sessionToken).subscribe(
+
+            response => {
+
+                data = response;
+                
+                //check to see if the clip had been liked already
+                if(data.error == null){
+                    //Update current view
+                    var index = findWithAttr(this.data.feedClips, 'id', clipId);
+                    this.data.feedClips[index].likes++;
+                }
+                else{
+                    console.log('Not going to increment likes for clip: ' + clipId + '. User already likes clip.');
+                }
+            }
+         );
+        
+        function findWithAttr(array, attr, value) {
+
+            for (var i = 0; i < array.length; i += 1) {
+                if (array[i][attr] === value) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
 
     public async share(file, image, clipName) {
         try {
